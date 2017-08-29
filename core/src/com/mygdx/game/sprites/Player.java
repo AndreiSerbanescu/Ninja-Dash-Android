@@ -15,10 +15,11 @@ public class Player {
     private  int height;
     private Vector2 position;
     private Vector2 velocity;
-    private float gravityX = 7;
+    private float gravityX = 15;
     private int orientation;
 
     private Animation runAnimation;
+    //private Animation jumpAnimation;
 
     public Player(int width, int height, Vector2 position) {
 
@@ -80,6 +81,12 @@ public class Player {
         if (position.x + width + margin > MyGdxGame.WIDTH) {
             position.x = MyGdxGame.WIDTH - margin - width;
             if (velocity.x > 0) {
+                velocity.x = 0;
+            }
+        }
+        if (position.x - margin < 0) {
+            position.x = margin;
+            if (velocity.x < 0) {
                 velocity.x = 0;
             }
         }
