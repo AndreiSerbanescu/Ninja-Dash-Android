@@ -15,15 +15,18 @@ public class Player {
     private  int height;
     private Vector2 position;
     private Vector2 velocity;
-    private float gravityX = 15;
+    private float gravityX = 50;
     private int orientation;
+    private int margin = 10;
 
     private Animation runAnimation;
-    //private Animation jumpAnimation;
+    private Animation jumpAnimation;
+    private Animation currentAnimation;
+    private Animation slideAnimation;
 
     public Player(int width, int height, Vector2 position) {
 
-        initAnimation();
+        initAnimations();
         this.width = width;
         this.height = height;
         this.position = position;
@@ -35,19 +38,30 @@ public class Player {
         this(width, height, new Vector2(x, y));
     }
 
-    private void initAnimation() {
-        String pathRoot = "ninjaAnimation/run/Run__00";
+
+    private void initAnimations() {
+        runAnimation
+                = makeAnimation("ninjaAnimation/run/Run__00", 9, "png", 0.2f);
+        jumpAnimation
+                = makeAnimation("ninjaAnimation/jump/Jump__00", 9, "png", 0.2f);
+        slideAnimation
+                = makeAnimation("ninjaAnimation/slide/Slide__00", 9, "png", 0.2f);
+
+        currentAnimation = slideAnimation;
+    }
+
+    private Animation makeAnimation(String pathRoot, int count, String textureFormat, float cycleTime) {
         String path;
-        int runCount = 9;
-        Texture[] textures = new Texture[runCount];
 
+        Texture[] textures = new Texture[count];
 
-        for (int i = 0; i < runCount; i++) {
-            path = pathRoot + Integer.toString(i) + ".png";
+        for (int i = 0; i < count; i++) {
+            path = pathRoot + Integer.toString(i) + "." + textureFormat;
             textures[i] = new Texture(path);
         }
 
-        runAnimation = new Animation(textures, runCount, 0.2f);
+
+        return new Animation(textures, count, cycleTime);
     }
 
     public int getWidth() {
@@ -71,9 +85,14 @@ public class Player {
     }
 
     public void update(float deltaTime) {
-        runAnimation.update(deltaTime);
+        if (isGrounded()) {
+            currentAnimation = runAnimation;
+        } else {
+            currentAnimation = slideAnimation;
+        }
 
-        int margin = 10;
+
+        currentAnimation.update(deltaTime);
 
         velocity.add(gravityX, 0);
 
@@ -105,12 +124,23 @@ public class Player {
     }
 
     public void jump() {
-        gravityX = -gravityX;
-        orientation = -orientation;
+        if (isGrounded()) {
+            gravityX = -gravityX;
+            orientation = -orientation;
+        }
+    }
+
+    private boolean isGrounded() {
+        int buffer = 5;
+        return ((margin - buffer <= position.x)
+                    && (position.x <= margin + buffer))
+                ||
+                ((position.x >= MyGdxGame.WIDTH - margin - width - buffer)
+                        && (position.x <= MyGdxGame.WIDTH - margin - width + buffer));
     }
 
     public void render(SpriteBatch sb) {
-        TextureRegion currentFrame = runAnimation.getFrame();
+        TextureRegion currentFrame = currentAnimation.getFrame();
 
        if (orientation == LEFT) {
             currentFrame.flip(true, false);
