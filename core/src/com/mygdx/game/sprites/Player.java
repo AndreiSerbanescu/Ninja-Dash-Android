@@ -19,6 +19,7 @@ public class Player {
     private int orientation;
     private int margin = 10;
 
+    private Texture background;
     private Animation runAnimation;
     private Animation jumpAnimation;
     private Animation currentAnimation;
@@ -32,6 +33,7 @@ public class Player {
         this.position = position;
         orientation = RIGHT;
         velocity = new Vector2(0, 0);
+        background = new Texture("background.jpg");
     }
 
     public Player(int width, int height, int x, int y) {
@@ -109,9 +111,6 @@ public class Player {
                 velocity.x = 0;
             }
         }
-
-        System.out.println(position.x + " " + margin + " " + MyGdxGame.WIDTH);
-
         velocity.scl(deltaTime);
 
         position.add(velocity);
@@ -144,15 +143,17 @@ public class Player {
 
        if (orientation == LEFT) {
             currentFrame.flip(true, false);
-        }
+       }
 
-        sb.begin();
-        sb.draw(currentFrame, position.x, position.y, width, height);
+       sb.begin();
 
-        if (orientation == LEFT) {
-            currentFrame.flip(true, false);
-        }
+       sb.draw(background, 0, 0, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
 
-        sb.end();
+       sb.draw(currentFrame, position.x, position.y, width, height);
+       if (orientation == LEFT) {
+           currentFrame.flip(true, false);
+       }
+
+       sb.end();
     }
 }
