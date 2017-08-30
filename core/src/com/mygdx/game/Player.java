@@ -19,7 +19,7 @@ public class Player {
     private Vector2 velocity;
     private float gravityX = 50;
     private int orientation;
-    private int margin = 10;
+    private int margin = 30;
 
 
     private Animation runAnimation;
