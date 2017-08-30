@@ -1,10 +1,12 @@
-package com.mygdx.game.sprites;
+package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.sprites.Animation;
 
 public class Player {
 
@@ -25,6 +27,8 @@ public class Player {
     private Animation currentAnimation;
     private Animation slideAnimation;
 
+    private static float playerUpVelocityY = MyGdxGame.HEIGHT * 2 / 3;
+
     public Player(int width, int height, Vector2 position) {
 
         initAnimations();
@@ -32,7 +36,7 @@ public class Player {
         this.height = height;
         this.position = position;
         orientation = RIGHT;
-        velocity = new Vector2(0, 0);
+        velocity = new Vector2(0, playerUpVelocityY);
         background = new Texture("background.jpg");
     }
 

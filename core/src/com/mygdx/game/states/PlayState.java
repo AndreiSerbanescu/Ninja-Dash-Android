@@ -3,12 +3,13 @@ package com.mygdx.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.GameStateManager;
 import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.sprites.Player;
+import com.mygdx.game.Player;
 
 public class PlayState extends AbstractState {
-    private com.mygdx.game.sprites.Player player;
+    private Player player;
 
     public PlayState(GameStateManager game) {
         super(game);
@@ -20,7 +21,9 @@ public class PlayState extends AbstractState {
 
         player = new Player(newWidth,
                 newHeight,
-                0, MyGdxGame.HEIGHT / 4);
+                0, MyGdxGame.HEIGHT / 6);
+
+        camera.setToOrtho(false);
     }
 
     @Override
@@ -34,11 +37,18 @@ public class PlayState extends AbstractState {
     public void update(float deltaTime) {
         handleInput();
 
+        float cameraOffsetY = camera.position.y - player.getPosition().y;
+
         player.update(deltaTime);
+
+        camera.position.y = player.getPosition().y + cameraOffsetY;
+
+        camera.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(camera.combined);
         player.render(sb);
     }
 
