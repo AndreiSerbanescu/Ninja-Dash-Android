@@ -21,7 +21,7 @@ public class Player {
     private int orientation;
     private int margin = 10;
 
-    private Texture background;
+
     private Animation runAnimation;
     private Animation jumpAnimation;
     private Animation currentAnimation;
@@ -37,7 +37,6 @@ public class Player {
         this.position = position;
         orientation = RIGHT;
         velocity = new Vector2(0, playerUpVelocityY);
-        background = new Texture("background.jpg");
     }
 
     public Player(int width, int height, int x, int y) {
@@ -150,8 +149,6 @@ public class Player {
        }
 
        sb.begin();
-
-       sb.draw(background, 0, 0, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
 
        sb.draw(currentFrame, position.x, position.y, width, height);
        if (orientation == LEFT) {
