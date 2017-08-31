@@ -103,7 +103,7 @@ public class PlayState extends AbstractState {
         border.dispose();
     }
 
-    public class Border {
+    private class Border {
 
         private TextureRegion textReg;
         private Vector2 pos1Left;

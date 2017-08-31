@@ -15,6 +15,8 @@ public class HorizontalEnemy implements Enemy {
 
     private TextureRegion textReg;
 
+    private Rope rope;
+
     private float width;
     private float height;
 
@@ -31,6 +33,8 @@ public class HorizontalEnemy implements Enemy {
         height = MyGdxGame.HEIGHT / 10;
 
         velocity = new Vector2(MyGdxGame.WIDTH / 4, 0);
+
+        rope = new Rope();
 
         initTextReg();
 
@@ -76,6 +80,8 @@ public class HorizontalEnemy implements Enemy {
         sb.begin();
         sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
         sb.end();
+
+        rope.render(sb);
     }
 
     @Override
@@ -95,6 +101,39 @@ public class HorizontalEnemy implements Enemy {
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    private class Rope {
+        private Vector2 position;
+        private Texture texture;
+        private float width;
+        private float height;
+
+        private Rope() {
+            width = MyGdxGame.WIDTH;
+            height = MyGdxGame.HEIGHT / 50;
+
+            updatePos();
+            texture = new Texture("./Tiles/dirtCenter.png");
+        }
+
+
+        private void update() {
+            updatePos();
+        }
+
+        private void updatePos() {
+            position = HorizontalEnemy.this.position.cpy();
+            position.y -= height;
+        }
+
+        private void render(SpriteBatch sb) {
+            sb.begin();
+
+            sb.draw(texture, position.x, position.y, width, height);
+
+            sb.end();
+        }
     }
 
 }
