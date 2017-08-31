@@ -8,13 +8,13 @@ import com.mygdx.game.GameStateManager;
 public abstract class AbstractState {
 
     protected Vector2 mouse;
-    protected OrthographicCamera camera;
     protected GameStateManager game;
+    protected OrthographicCamera camera;
 
     protected AbstractState(GameStateManager game) {
         this.game = game;
-        camera = new OrthographicCamera();
         mouse = new Vector2();
+        camera = new OrthographicCamera();
 
     }
 
