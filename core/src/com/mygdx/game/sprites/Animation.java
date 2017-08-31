@@ -39,4 +39,12 @@ public class Animation {
     public TextureRegion getFrame() {
         return frames.get(frame);
     }
+
+    public void dispose() {
+
+        for (int i = 0; i < frames.size; i++) {
+            frames.get(i).getTexture().dispose();
+        }
+        frames.clear();
+    }
 }

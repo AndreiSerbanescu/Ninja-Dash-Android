@@ -87,7 +87,9 @@ public class PlayState extends AbstractState {
 
     @Override
     public void dispose() {
-
+        player.dispose();
+        background.dispose();
+        border.dispose();
     }
 
     public class Border {
@@ -160,6 +162,9 @@ public class PlayState extends AbstractState {
             collBox1Right.setPosition(pos1Right);
             collBox2Left.setPosition(pos2Left);
             collBox2Right.setPosition(pos2Right);
+        }
+        void dispose() {
+            textReg.getTexture().dispose();
         }
     }
 }

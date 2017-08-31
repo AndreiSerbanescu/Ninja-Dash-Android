@@ -210,4 +210,11 @@ public class Player {
 
        sb.end();
     }
+
+    public void dispose() {
+        runAnimation.dispose();
+        jumpAnimation.dispose();
+        currentAnimation.dispose();
+        slideAnimation.dispose();
+    }
 }
