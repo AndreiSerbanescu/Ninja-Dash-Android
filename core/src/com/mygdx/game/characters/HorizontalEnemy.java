@@ -1,4 +1,4 @@
-package com.mygdx.game.Characters;
+package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +30,7 @@ public class HorizontalEnemy implements Enemy {
         width = MyGdxGame.WIDTH / 10;
         height = MyGdxGame.HEIGHT / 10;
 
-        velocity = new Vector2(30, MyGdxGame.HEIGHT * 2 / 3);
+        velocity = new Vector2(30, MyGdxGame.HEIGHT * 2 / 3 * 0.8f);
 
         initTextReg();
 
@@ -68,7 +68,7 @@ public class HorizontalEnemy implements Enemy {
 
     @Override
     public void die() {
-
+        dispose();
     }
 
     @Override
@@ -91,4 +91,10 @@ public class HorizontalEnemy implements Enemy {
     public void dispose() {
         attackAnimation.dispose();
     }
+
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
 }

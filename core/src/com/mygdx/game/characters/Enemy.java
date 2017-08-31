@@ -1,6 +1,7 @@
-package com.mygdx.game.Characters;
+package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public interface Enemy {
 
@@ -13,4 +14,6 @@ public interface Enemy {
     void update(float deltaTime);
 
     void dispose();
+
+    Vector2 getPosition();
 }

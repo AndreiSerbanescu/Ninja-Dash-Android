@@ -1,4 +1,4 @@
-package com.mygdx.game.Characters;
+package com.mygdx.game.characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -209,6 +209,10 @@ public class Player {
        }
 
        sb.end();
+    }
+
+    public void kill(Enemy enemy) {
+        enemy.die();
     }
 
     public void dispose() {
