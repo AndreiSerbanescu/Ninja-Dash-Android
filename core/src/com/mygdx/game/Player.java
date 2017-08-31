@@ -1,9 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
@@ -17,9 +20,13 @@ public class Player {
     private  int height;
     private Vector2 position;
     private Vector2 velocity;
-    private float gravityX = 50;
+
+    private float gravityX = 150;
+
     private int orientation;
     private int margin = 30;
+
+    private Rectangle collBox;
 
 
     private Animation runAnimation;
@@ -27,9 +34,15 @@ public class Player {
     private Animation currentAnimation;
     private Animation slideAnimation;
 
+    private Rectangle ground1Left, ground1Right, ground2Left, ground2Right;
+    private OrthographicCamera camera;
+
     private static float playerUpVelocityY = MyGdxGame.HEIGHT * 2 / 3;
 
-    public Player(int width, int height, Vector2 position) {
+    public Player(int width, int height, Vector2 position,
+                  Rectangle ground1Left, Rectangle ground1Right,
+                  Rectangle ground2Left, Rectangle ground2Right,
+                  OrthographicCamera camera) {
 
         initAnimations();
         this.width = width;
@@ -37,10 +50,15 @@ public class Player {
         this.position = position;
         orientation = RIGHT;
         velocity = new Vector2(0, playerUpVelocityY);
-    }
 
-    public Player(int width, int height, int x, int y) {
-        this(width, height, new Vector2(x, y));
+        collBox = new Rectangle(position.x, position.y, width, height);
+
+        this.camera = camera;
+
+        this.ground1Left = ground1Left;
+        this.ground1Right = ground1Right;
+        this.ground2Left = ground2Left;
+        this.ground2Right = ground2Right;
     }
 
 
@@ -90,6 +108,10 @@ public class Player {
     }
 
     public void update(float deltaTime) {
+
+
+
+
         if (isGrounded()) {
             currentAnimation = runAnimation;
         } else {
@@ -101,14 +123,15 @@ public class Player {
 
         velocity.add(gravityX, 0);
 
+        //velocity.x = gravityX;
 
-        if (position.x + width + margin > MyGdxGame.WIDTH) {
+        if (isRightOfCamera() || isGroundedRight()) {
             position.x = MyGdxGame.WIDTH - margin - width;
             if (velocity.x > 0) {
                 velocity.x = 0;
             }
         }
-        if (position.x - margin < 0) {
+        if (isLeftOfCamera() || isGroundedLeft()) {
             position.x = margin;
             if (velocity.x < 0) {
                 velocity.x = 0;
@@ -119,6 +142,9 @@ public class Player {
         position.add(velocity);
 
         velocity.scl(1f / deltaTime);
+
+        collBox.setPosition(position);
+
     }
 
     public Texture getTexture() {
@@ -126,20 +152,47 @@ public class Player {
     }
 
     public void jump() {
+
         if (isGrounded()) {
             gravityX = -gravityX;
             orientation = -orientation;
         }
+
     }
 
+
     private boolean isGrounded() {
-        int buffer = 5;
-        return ((margin - buffer <= position.x)
-                    && (position.x <= margin + buffer))
-                ||
-                ((position.x >= MyGdxGame.WIDTH - margin - width - buffer)
-                        && (position.x <= MyGdxGame.WIDTH - margin - width + buffer));
+        return isGroundedLeft() || isGroundedRight();
     }
+
+    private boolean isGroundedLeft() {
+        return collBox.overlaps(ground1Left) || collBox.overlaps(ground2Left)
+                || position.x == ground1Left.x + ground1Left.width
+                || position.x == ground2Left.x + ground2Left.width;
+    }
+
+    private boolean isGroundedRight() {
+        return collBox.overlaps(ground1Right) || collBox.overlaps(ground2Right)
+                || position.x + width == ground1Right.x || position.x + width == ground2Right.x;
+    }
+
+    private boolean isOutOfCameraView() {
+        return (position.x < camera.position.x - camera.viewportWidth / 2)
+                || (position.x > camera.position.x + camera.viewportWidth / 2);
+    }
+
+    private boolean isInAir() {
+        return !isGrounded() && !isOutOfCameraView();
+    }
+
+    private boolean isLeftOfCamera() {
+        return position.x < camera.position.x - camera.viewportWidth / 2;
+    }
+
+    private boolean isRightOfCamera() {
+        return position.x > camera.position.x + camera.viewportWidth / 2;
+    }
+
 
     public void render(SpriteBatch sb) {
         TextureRegion currentFrame = currentAnimation.getFrame();

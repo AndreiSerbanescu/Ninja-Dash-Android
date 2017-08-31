@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameStateManager;
 import com.mygdx.game.MyGdxGame;
@@ -23,14 +24,18 @@ public class PlayState extends AbstractState {
         int newWidth = MyGdxGame.WIDTH / 5;
         int newHeight = newWidth * playerTexture.getHeight() / playerTexture.getWidth();
 
-        player = new Player(newWidth,
-                newHeight,
-                0, MyGdxGame.HEIGHT / 6);
+
+        border = new Border();
 
         camera.setToOrtho(false);
 
+        player = new Player(newWidth, newHeight,
+                new Vector2(border.width, 1f * MyGdxGame.HEIGHT / 6),
+                border.collBox1Left, border.collBox1Right,
+                border.collBox2Left, border.collBox2Right,
+                camera);
+
         initBackground();
-        border = new Border();
     }
 
     private void initBackground() {
@@ -51,12 +56,16 @@ public class PlayState extends AbstractState {
 
         float cameraOffsetY = camera.position.y - player.getPosition().y;
 
-        player.update(deltaTime);
+        updatePlayer(deltaTime);
 
         camera.position.y = player.getPosition().y + cameraOffsetY;
 
         camera.update();
         border.update();
+    }
+
+    private void updatePlayer(float deltaTime) {
+        player.update(deltaTime);
     }
 
     @Override
@@ -86,6 +95,11 @@ public class PlayState extends AbstractState {
         private Vector2 pos2Left;
         private Vector2 pos2Right;
 
+        private Rectangle collBox1Left;
+        private Rectangle collBox1Right;
+        private Rectangle collBox2Left;
+        private Rectangle collBox2Right;
+
         private float width;
         private float height;
 
@@ -101,6 +115,12 @@ public class PlayState extends AbstractState {
 
             pos2Left = new Vector2(0, MyGdxGame.HEIGHT);
             pos2Right = getRightfromLeft(pos2Left);
+
+            collBox1Left = new Rectangle(pos1Left.x, pos1Left.y, width, height);
+            collBox2Left = new Rectangle(pos2Left.x, pos2Left.y, width, height);
+
+            collBox1Right = new Rectangle(pos1Right.x, pos1Right.y, width, height);
+            collBox2Right = new Rectangle(pos2Right.x, pos2Right.y, width, height);
         }
 
         private Vector2 getRightfromLeft(Vector2 left) {
@@ -132,6 +152,11 @@ public class PlayState extends AbstractState {
                 pos2Right = new Vector2(pos2Right.x, pos1Right.y + height);
             }
 
+
+            collBox1Left.setPosition(pos1Left);
+            collBox1Right.setPosition(pos1Right);
+            collBox2Left.setPosition(pos2Left);
+            collBox2Right.setPosition(pos2Right);
         }
     }
 }
