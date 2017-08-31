@@ -37,7 +37,7 @@ public class Player {
     private Rectangle ground1Left, ground1Right, ground2Left, ground2Right;
     private OrthographicCamera camera;
 
-    private static float playerUpVelocityY = MyGdxGame.HEIGHT * 2 / 3;
+    private static float playerUpVelocityY = MyGdxGame.HEIGHT / 5;
 
     public Player(int width, int height, Vector2 position,
                   Rectangle ground1Left, Rectangle ground1Right,

@@ -30,7 +30,7 @@ public class HorizontalEnemy implements Enemy {
         width = MyGdxGame.WIDTH / 10;
         height = MyGdxGame.HEIGHT / 10;
 
-        velocity = new Vector2(30, MyGdxGame.HEIGHT * 2 / 3 * 0.8f);
+        velocity = new Vector2(MyGdxGame.WIDTH / 4, 0);
 
         initTextReg();
 
