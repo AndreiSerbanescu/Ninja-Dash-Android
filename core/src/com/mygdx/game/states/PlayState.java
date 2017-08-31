@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Characters.Enemy;
+import com.mygdx.game.Characters.HorizontalEnemy;
 import com.mygdx.game.GameStateManager;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.Characters.Player;
@@ -15,6 +17,8 @@ public class PlayState extends AbstractState {
 
     private Texture background;
     private Border border;
+
+    private Enemy enemy;
 
     public PlayState(GameStateManager game) {
         super(game);
@@ -32,6 +36,8 @@ public class PlayState extends AbstractState {
                 border.collBox1Left, border.collBox1Right,
                 border.collBox2Left, border.collBox2Right,
                 camera);
+
+        enemy = new HorizontalEnemy(0, 200);
 
         initBackground();
 
@@ -63,6 +69,8 @@ public class PlayState extends AbstractState {
 
         camera.update();
         border.update();
+
+        enemy.update(deltaTime);
     }
 
     private void updatePlayer(float deltaTime) {
@@ -81,6 +89,7 @@ public class PlayState extends AbstractState {
         sb.end();
         player.render(sb);
         border.render(sb);
+        enemy.render(sb);
     }
 
     @Override
