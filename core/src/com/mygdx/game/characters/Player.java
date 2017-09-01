@@ -21,6 +21,7 @@ public class Player {
     private Vector2 position;
     private Vector2 velocity;
 
+    private float jumpVelocityX = 150;
 
     private int orientation;
     private int margin = 30;
@@ -35,6 +36,8 @@ public class Player {
 
     private Rectangle ground1Left, ground1Right, ground2Left, ground2Right;
     private OrthographicCamera camera;
+
+    private boolean isJumping = false;
 
     private static float playerUpVelocityY = MyGdxGame.HEIGHT / 5;
 
@@ -117,22 +120,18 @@ public class Player {
 
         currentAnimation.update(deltaTime);
 
-        //velocity = getJumpVelocity();
-
-        velocity.x = 150;
+        velocity.x = jumpVelocityX;
 
         if (isRightOfCamera() || isGroundedRight()) {
             position.x = MyGdxGame.WIDTH - margin - width;
             if (velocity.x > 0) {
                 velocity.x = 0;
-                velocity.y = 0;
             }
         }
         if (isLeftOfCamera() || isGroundedLeft()) {
             position.x = margin;
             if (velocity.x < 0) {
                 velocity.x = 0;
-                velocity.y = 0;
             }
         }
         velocity.scl(deltaTime);
@@ -142,19 +141,26 @@ public class Player {
         velocity.scl(1f / deltaTime);
 
 
-        //if (isInAir()) {
+        if (isJumping) {
             position = getJumpPosition(position);
-        //}
+        }
         collBox.setPosition(position);
 
+
+        if (isGrounded()) {
+            isJumping = false;
+            System.out.println(position.y);
+        }
     }
 
     private Vector2 getJumpPosition(Vector2 position) {
         float alpha = 0.01f;
 
-        float variable = position.x + ground1Left.width;
+        float variable = position.x;
+        float offset = ground1Left.width;
+        float endValue = MyGdxGame.WIDTH - ground1Left.width - width;
 
-        return new Vector2(position.x, alpha * variable * (MyGdxGame.WIDTH - ground1Left.width - variable));
+        return new Vector2(position.x, alpha * (variable + offset) * (endValue - variable));
     }
     public Texture getTexture() {
         return runAnimation.getFrame().getTexture();
@@ -163,10 +169,10 @@ public class Player {
     public void jump() {
 
         if (isGrounded()) {
-            //gravityX = -gravityX;
+            jumpVelocityX = -jumpVelocityX;
             orientation = -orientation;
         }
-
+        isJumping = true;
     }
 
 
