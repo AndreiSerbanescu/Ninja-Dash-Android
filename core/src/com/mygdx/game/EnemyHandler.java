@@ -19,7 +19,7 @@ public class EnemyHandler {
 
     private void initEnemies() {
         for (int i = 0; i < 10; i++) {
-            enemies.add(new HorizontalEnemy(0, 100 * i));
+            enemies.add(new HorizontalEnemy(0, 500 * i));
         }
     }
 

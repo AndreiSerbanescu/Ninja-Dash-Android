@@ -69,7 +69,7 @@ public class PlayState extends AbstractState {
 
         updatePlayer(deltaTime);
 
-        camera.position.y = player.getPosition().y + cameraOffsetY;
+        //camera.position.y = player.getPosition().y + cameraOffsetY;
 
         camera.update();
         border.update();

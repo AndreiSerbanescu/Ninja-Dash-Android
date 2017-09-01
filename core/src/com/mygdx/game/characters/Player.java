@@ -21,7 +21,6 @@ public class Player {
     private Vector2 position;
     private Vector2 velocity;
 
-    private float gravityX = 150;
 
     private int orientation;
     private int margin = 30;
@@ -49,7 +48,7 @@ public class Player {
         this.height = height;
         this.position = position;
         orientation = RIGHT;
-        velocity = new Vector2(0, playerUpVelocityY);
+        velocity = new Vector2(0, 0/*playerUpVelocityY*/);
 
         collBox = new Rectangle(position.x, position.y, width, height);
 
@@ -109,9 +108,6 @@ public class Player {
 
     public void update(float deltaTime) {
 
-
-
-
         if (isGrounded()) {
             currentAnimation = runAnimation;
         } else {
@@ -121,20 +117,22 @@ public class Player {
 
         currentAnimation.update(deltaTime);
 
-        velocity.add(gravityX, 0);
+        //velocity = getJumpVelocity();
 
-        //velocity.x = gravityX;
+        velocity.x = 150;
 
         if (isRightOfCamera() || isGroundedRight()) {
             position.x = MyGdxGame.WIDTH - margin - width;
             if (velocity.x > 0) {
                 velocity.x = 0;
+                velocity.y = 0;
             }
         }
         if (isLeftOfCamera() || isGroundedLeft()) {
             position.x = margin;
             if (velocity.x < 0) {
                 velocity.x = 0;
+                velocity.y = 0;
             }
         }
         velocity.scl(deltaTime);
@@ -143,10 +141,21 @@ public class Player {
 
         velocity.scl(1f / deltaTime);
 
+
+        //if (isInAir()) {
+            position = getJumpPosition(position);
+        //}
         collBox.setPosition(position);
 
     }
 
+    private Vector2 getJumpPosition(Vector2 position) {
+        float alpha = 0.01f;
+
+        float variable = position.x + ground1Left.width;
+
+        return new Vector2(position.x, alpha * variable * (MyGdxGame.WIDTH - ground1Left.width - variable));
+    }
     public Texture getTexture() {
         return runAnimation.getFrame().getTexture();
     }
@@ -154,7 +163,7 @@ public class Player {
     public void jump() {
 
         if (isGrounded()) {
-            gravityX = -gravityX;
+            //gravityX = -gravityX;
             orientation = -orientation;
         }
 
