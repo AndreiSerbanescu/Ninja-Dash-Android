@@ -7,14 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EnemyHandler;
-import com.mygdx.game.characters.Enemy;
-import com.mygdx.game.characters.HorizontalEnemy;
 import com.mygdx.game.GameStateManager;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Player;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayState extends AbstractState {
     private Player player;
@@ -36,7 +31,7 @@ public class PlayState extends AbstractState {
         border = new Border();
 
         player = new Player(newWidth, newHeight,
-                new Vector2(border.width, 100/*1f * MyGdxGame.HEIGHT / 6*/),
+                new Vector2(border.width, 1f * MyGdxGame.HEIGHT / 6),
                 border.collBox1Left, border.collBox1Right,
                 border.collBox2Left, border.collBox2Right,
                 camera);

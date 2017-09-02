@@ -2,7 +2,6 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
@@ -26,7 +25,7 @@ public class HorizontalEnemy implements Enemy {
     public HorizontalEnemy(float x, float y) {
         position = new Vector2(x, y);
 
-        //TOOD make height according to width
+        //TODO make height according to width
         width = MyGdxGame.WIDTH / 10;
         height = MyGdxGame.HEIGHT / 10;
 
