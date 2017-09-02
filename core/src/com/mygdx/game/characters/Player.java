@@ -53,6 +53,7 @@ public class Player {
         this.height = height;
         this.position = position;
         nonJumpPos = position.cpy();
+
         orientation = RIGHT;
         velocity = new Vector2(0, playerUpVelocityY);
 
@@ -137,11 +138,19 @@ public class Player {
                 velocity.x = 0;
             }
         }
+
+
+
+        Vector2 velY = velocity.cpy();
         velocity.scl(deltaTime);
+        velY.scl(deltaTime);
 
         position.add(velocity);
+        velY.x = 0;
+        nonJumpPos.add(velY);
 
         velocity.scl(1f / deltaTime);
+        velY.scl(1f / deltaTime);
 
 
         if (isJumping) {
@@ -152,7 +161,7 @@ public class Player {
 
         if (isGrounded()) {
             isJumping = false;
-            System.out.println(position.y);
+            //System.out.println(position.y);
         }
     }
 
@@ -225,7 +234,7 @@ public class Player {
        if (orientation == LEFT) {
            currentFrame.flip(true, false);
        }
-
+        
        sb.end();
     }
 
@@ -238,5 +247,9 @@ public class Player {
         jumpAnimation.dispose();
         currentAnimation.dispose();
         slideAnimation.dispose();
+    }
+
+    public float getNonJumpPosY() {
+        return nonJumpPos.y;
     }
 }
