@@ -19,9 +19,11 @@ public class Player {
     private int width;
     private  int height;
     private Vector2 position;
+    private Vector2 nonJumpPos;
+
     private Vector2 velocity;
 
-    private float jumpVelocityX = 150;
+    private float jumpVelocityX = 700;
 
     private int orientation;
     private int margin = 30;
@@ -50,8 +52,9 @@ public class Player {
         this.width = width;
         this.height = height;
         this.position = position;
+        nonJumpPos = position.cpy();
         orientation = RIGHT;
-        velocity = new Vector2(0, 0/*playerUpVelocityY*/);
+        velocity = new Vector2(0, playerUpVelocityY);
 
         collBox = new Rectangle(position.x, position.y, width, height);
 
@@ -154,13 +157,13 @@ public class Player {
     }
 
     private Vector2 getJumpPosition(Vector2 position) {
-        float alpha = 0.01f;
+        float alpha = -0.0035f;
 
         float variable = position.x;
         float offset = ground1Left.width;
         float endValue = MyGdxGame.WIDTH - ground1Left.width - width;
 
-        return new Vector2(position.x, alpha * (variable + offset) * (endValue - variable));
+        return new Vector2(position.x,  nonJumpPos.y + (variable - offset) * (variable - endValue) * alpha);
     }
     public Texture getTexture() {
         return runAnimation.getFrame().getTexture();

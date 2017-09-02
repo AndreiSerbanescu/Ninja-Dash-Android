@@ -36,7 +36,7 @@ public class PlayState extends AbstractState {
         border = new Border();
 
         player = new Player(newWidth, newHeight,
-                new Vector2(border.width, 1f * MyGdxGame.HEIGHT / 6),
+                new Vector2(border.width, 100/*1f * MyGdxGame.HEIGHT / 6*/),
                 border.collBox1Left, border.collBox1Right,
                 border.collBox2Left, border.collBox2Right,
                 camera);
@@ -69,7 +69,7 @@ public class PlayState extends AbstractState {
 
         updatePlayer(deltaTime);
 
-        //camera.position.y = player.getPosition().y + cameraOffsetY;
+        camera.position.y = player.getPosition().y + cameraOffsetY;
 
         camera.update();
         border.update();
