@@ -11,13 +11,10 @@ import java.util.Set;
 
 public class EnemyHandler {
 
-    //private Set<Enemy> enemies;
-
-    private List<Enemy> enemies;
+    private Set<Enemy> enemies;
 
     public EnemyHandler() {
-        //enemies = new LinkedHashSet<Enemy>();
-        enemies = new ArrayList<Enemy>();
+        enemies = new LinkedHashSet<Enemy>();
         initEnemies();
     }
 
