@@ -120,7 +120,7 @@ public class PlayState extends AbstractState {
         private float height;
 
         public Border() {
-            textReg = new TextureRegion(new Texture("Tiles/__tile.png"));
+            textReg = new TextureRegion(new Texture("tiles/__tile.png"));
 
             width = 30;
             height = MyGdxGame.HEIGHT;

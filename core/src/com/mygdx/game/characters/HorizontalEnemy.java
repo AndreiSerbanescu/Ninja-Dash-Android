@@ -13,8 +13,6 @@ public class HorizontalEnemy implements Enemy {
 
     private Vector2 velocity;
 
-    private TextureRegion textReg;
-
     private Rope rope;
 
     private float width;
@@ -34,9 +32,10 @@ public class HorizontalEnemy implements Enemy {
 
         velocity = new Vector2(MyGdxGame.WIDTH / 4, 0);
 
+
         rope = new Rope();
 
-        initTextReg();
+
 
         initAnimations();
     }
@@ -51,7 +50,7 @@ public class HorizontalEnemy implements Enemy {
 
     private void initAnimations() {
         attackAnimation
-                = makeAnimation("./enemy/horizontal/slimeWalk", "png", 2, 0.5f);
+                = makeAnimation("enemy/horizontal/slimeWalk", "png", 2, 0.5f);
 
         currentAnimation = attackAnimation;
     }
@@ -64,10 +63,6 @@ public class HorizontalEnemy implements Enemy {
         }
 
         return new Animation(textures, frameCount, cycleTime);
-    }
-
-    private void initTextReg() {
-
     }
 
     @Override
@@ -111,10 +106,10 @@ public class HorizontalEnemy implements Enemy {
 
         private Rope() {
             width = MyGdxGame.WIDTH;
-            height = MyGdxGame.HEIGHT / 50;
+            height = MyGdxGame.HEIGHT / 150;
 
             updatePos();
-            texture = new Texture("./Tiles/dirtCenter.png");
+            texture = new Texture("tiles/stoneCenter.png");
         }
 
 

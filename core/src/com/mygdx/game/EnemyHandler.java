@@ -4,16 +4,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.characters.Enemy;
 import com.mygdx.game.characters.HorizontalEnemy;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
 public class EnemyHandler {
 
-    private Set<Enemy> enemies;
+    //private Set<Enemy> enemies;
+
+    private List<Enemy> enemies;
 
     public EnemyHandler() {
-        enemies = new LinkedHashSet<Enemy>();
+        //enemies = new LinkedHashSet<Enemy>();
+        enemies = new ArrayList<Enemy>();
         initEnemies();
     }
 
