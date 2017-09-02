@@ -36,7 +36,7 @@ public class PlayState extends AbstractState {
                 border.collBox2Left, border.collBox2Right,
                 camera);
 
-        enemyHandler = new EnemyHandler();
+        enemyHandler = new EnemyHandler(player);
 
         initBackground();
 
