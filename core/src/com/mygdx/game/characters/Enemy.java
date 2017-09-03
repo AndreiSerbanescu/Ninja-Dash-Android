@@ -18,5 +18,5 @@ public interface Enemy {
 
     Vector2 getPosition();
 
-    boolean overlaps(Rectangle rect);
+    boolean collides(Rectangle rect);
 }

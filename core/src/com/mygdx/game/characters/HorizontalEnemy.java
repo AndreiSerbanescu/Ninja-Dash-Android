@@ -9,16 +9,13 @@ import com.mygdx.game.sprites.Animation;
 
 import java.util.Random;
 
-public class HorizontalEnemy implements Enemy {
-
-    private Vector2 position;
+public class HorizontalEnemy extends AbstractEnemy implements Enemy {
 
     private Vector2 velocity;
     private int direction;
     private final int RIGHT = 1;
     private final int LEFT = -1;
 
-    private Rectangle collBox;
 
     private Rope rope;
 
@@ -33,6 +30,8 @@ public class HorizontalEnemy implements Enemy {
     private float endx;
 
 
+
+
     public HorizontalEnemy(float x, float y) {
         preInit();
         init(x, y);
@@ -45,11 +44,6 @@ public class HorizontalEnemy implements Enemy {
     private void preInit() {
         startx = 0;
         endx = MyGdxGame.WIDTH;
-    }
-
-    @Override
-    public boolean overlaps(Rectangle rect) {
-        return collBox.overlaps(rect);
     }
 
     private void init(float x, float y) {
@@ -72,7 +66,8 @@ public class HorizontalEnemy implements Enemy {
 
         initAnimations();
 
-        collBox = new Rectangle(position.x, position.y, width, height);
+        initCollBox(position.x, position.y, width, height);
+
     }
 
     public HorizontalEnemy() {
@@ -131,7 +126,7 @@ public class HorizontalEnemy implements Enemy {
             velocity.scl(-1);
         }
 
-        collBox.setPosition(position);
+        updateCollBox();
     }
 
     @Override
