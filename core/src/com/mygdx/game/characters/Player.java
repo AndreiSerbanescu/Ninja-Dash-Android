@@ -24,6 +24,8 @@ public class Player {
     private Vector2 position;
     private Vector2 nonJumpPos;
 
+    private boolean isDead = false;
+
     private Vector2 velocity;
 
     private float jumpVelocityX = 700;
@@ -38,6 +40,8 @@ public class Player {
     private Animation jumpAnimation;
     private Animation currentAnimation;
     private Animation slideAnimation;
+    private Animation deadAnimation;
+    private Animation deadAnimationStopped;
 
     private Rectangle ground1Left, ground1Right, ground2Left, ground2Right;
     private OrthographicCamera camera;
@@ -78,6 +82,11 @@ public class Player {
                 = makeAnimation("ninjaAnimation/jump/Jump__00", 9, "png", 0.2f);
         slideAnimation
                 = makeAnimation("ninjaAnimation/slide/Slide__00", 9, "png", 0.2f);
+        deadAnimation
+                = makeAnimation("ninjaAnimation/dead/Dead__00", 9, "png", 0.2f);
+        deadAnimationStopped
+                = makeAnimation("ninjaAnimation/dead/Dead_stop", 1, "png", 1f);
+
 
         currentAnimation = slideAnimation;
     }
@@ -122,7 +131,11 @@ public class Player {
 
     public void update(float deltaTime) {
 
-        if (isGrounded()) {
+        if (isDead && deadAnimation.loopedOnce()) {
+            currentAnimation = deadAnimationStopped;
+        } else if (isDead && !deadAnimation.loopedOnce()) {
+            currentAnimation = deadAnimation;
+        } else if (isGrounded()) {
             currentAnimation = runAnimation;
         } else {
             currentAnimation = slideAnimation;
@@ -248,6 +261,12 @@ public class Player {
         enemy.die();
     }
 
+    public void die() {
+        currentAnimation = deadAnimation;
+        isDead = true;
+        velocity.y = 0;
+    }
+
     public void dispose() {
         runAnimation.dispose();
         jumpAnimation.dispose();
@@ -257,5 +276,9 @@ public class Player {
 
     public float getNonJumpPosY() {
         return nonJumpPos.y;
+    }
+
+    public boolean isJumping() {
+        return isJumping;
     }
 }

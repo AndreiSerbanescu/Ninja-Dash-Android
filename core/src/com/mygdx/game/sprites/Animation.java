@@ -11,6 +11,8 @@ public class Animation {
     private int frameCount;
     private int frame;
 
+    private boolean loopedOnce = false;
+
     public Animation(Texture[] textures, int frameCount, float cycleTime) {
         frames = new Array<TextureRegion>();
 
@@ -31,7 +33,11 @@ public class Animation {
             currentFrameTime = 0;
         }
 
-        if (frame >= frameCount) {
+        if (frame == frameCount - 1) {
+            loopedOnce = true;
+        }
+
+        if (frame == frameCount) {
             frame = 0;
         }
     }
@@ -46,5 +52,9 @@ public class Animation {
             frames.get(i).getTexture().dispose();
         }
         frames.clear();
+    }
+
+    public boolean loopedOnce() {
+        return loopedOnce;
     }
 }

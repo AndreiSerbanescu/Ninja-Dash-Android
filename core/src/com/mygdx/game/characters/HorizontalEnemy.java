@@ -7,9 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class HorizontalEnemy extends AbstractEnemy implements Enemy {
+public class HorizontalEnemy extends AbstractEnemy {
 
     private Vector2 velocity;
     private int direction;
@@ -23,6 +24,7 @@ public class HorizontalEnemy extends AbstractEnemy implements Enemy {
     private float height;
 
 
+    private Animation deadAnimation;
     private Animation attackAnimation;
     private Animation currentAnimation;
 
@@ -81,7 +83,10 @@ public class HorizontalEnemy extends AbstractEnemy implements Enemy {
 
     private void initAnimations() {
         attackAnimation
-                = makeAnimation("enemy/horizontal/slimeWalk", "png", 2, 0.5f);
+                = makeAnimation("enemy/horizontal/snail/snailWalk", "png", 2, 0.5f);
+
+        deadAnimation
+                = makeAnimation("enemy/horizontal/snail/snailShell", "png", 2, 0.5f);
 
         currentAnimation = attackAnimation;
     }
@@ -98,7 +103,8 @@ public class HorizontalEnemy extends AbstractEnemy implements Enemy {
 
     @Override
     public void die() {
-        dispose();
+        currentAnimation = deadAnimation;
+        isDead = true;
     }
 
     @Override

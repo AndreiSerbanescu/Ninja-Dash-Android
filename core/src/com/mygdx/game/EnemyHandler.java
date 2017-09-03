@@ -48,7 +48,11 @@ public class EnemyHandler {
 
         for (Enemy enemy : enemies) {
             if (enemy.collides(player.getCollBox())) {
-                System.out.println(enemy + " enemy overlaps with player!");
+                if (player.isJumping()) {
+                    enemy.die();
+                } else if (!player.isJumping() && !enemy.isDead()){
+                    player.die();
+                }
             }
         }
     }

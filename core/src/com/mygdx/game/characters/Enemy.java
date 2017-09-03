@@ -19,4 +19,6 @@ public interface Enemy {
     Vector2 getPosition();
 
     boolean collides(Rectangle rect);
+
+    boolean isDead();
 }
