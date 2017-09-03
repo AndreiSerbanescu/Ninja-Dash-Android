@@ -51,7 +51,7 @@ public class EnemyHandler {
                 if (player.isJumping()) {
                     enemy.die();
                 } else if (!player.isJumping() && !enemy.isDead()){
-                    player.die();
+                    player.receiveAttack(enemy);
                 }
             }
         }

@@ -25,6 +25,8 @@ public class Player {
     private Vector2 nonJumpPos;
 
     private boolean isDead = false;
+    private boolean isProtected = true;
+    private Texture protectionOrb;
 
     private Vector2 velocity;
 
@@ -72,6 +74,8 @@ public class Player {
         this.ground1Right = ground1Right;
         this.ground2Left = ground2Left;
         this.ground2Right = ground2Right;
+
+        protectionOrb = new Texture("star.png");
     }
 
 
@@ -253,6 +257,9 @@ public class Player {
        if (orientation == LEFT) {
            currentFrame.flip(true, false);
        }
+       if (isProtected) {
+           sb.draw(protectionOrb, position.x, position.y, width, height);
+       }
         
        sb.end();
     }
@@ -280,5 +287,14 @@ public class Player {
 
     public boolean isJumping() {
         return isJumping;
+    }
+
+    public void receiveAttack(Enemy enemy) {
+        if (isProtected) {
+            isProtected = false;
+            enemy.die();
+        } else {
+            die();
+        }
     }
 }
