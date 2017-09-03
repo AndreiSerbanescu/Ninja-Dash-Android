@@ -45,7 +45,15 @@ public class EnemyHandler {
 
 
         deleteEnemies();
+
+        for (Enemy enemy : enemies) {
+            if (enemy.overlaps(player.getCollBox())) {
+                System.out.println(enemy + " enemy overlaps with player!");
+            }
+        }
     }
+
+
 
     private void deleteEnemies() {
         List<Enemy> enemiesToDelete = new ArrayList<Enemy>();

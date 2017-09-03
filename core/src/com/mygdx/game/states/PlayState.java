@@ -24,7 +24,7 @@ public class PlayState extends AbstractState {
 
         Texture playerTexture = new Texture("ninjaAnimation/Run__000.png");
 
-        int newWidth = MyGdxGame.WIDTH / 5;
+        int newWidth = MyGdxGame.WIDTH / 7;
         int newHeight = newWidth * playerTexture.getHeight() / playerTexture.getWidth();
 
 

@@ -9,6 +9,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
+
+
+
+//TODO remove magic numbers
+
 public class Player {
 
     private static final int LEFT = -1;
@@ -75,6 +80,10 @@ public class Player {
                 = makeAnimation("ninjaAnimation/slide/Slide__00", 9, "png", 0.2f);
 
         currentAnimation = slideAnimation;
+    }
+
+    public Rectangle getCollBox() {
+        return collBox;
     }
 
     private Animation makeAnimation(String pathRoot, int count, String textureFormat, float cycleTime) {

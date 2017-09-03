@@ -2,6 +2,7 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
@@ -16,6 +17,8 @@ public class HorizontalEnemy implements Enemy {
     private int direction;
     private final int RIGHT = 1;
     private final int LEFT = -1;
+
+    private Rectangle collBox;
 
     private Rope rope;
 
@@ -44,6 +47,11 @@ public class HorizontalEnemy implements Enemy {
         endx = MyGdxGame.WIDTH;
     }
 
+    @Override
+    public boolean overlaps(Rectangle rect) {
+        return collBox.overlaps(rect);
+    }
+
     private void init(float x, float y) {
         position = new Vector2(x, y);
 
@@ -64,8 +72,7 @@ public class HorizontalEnemy implements Enemy {
 
         initAnimations();
 
-
-        System.out.println(position + " " + direction);
+        collBox = new Rectangle(position.x, position.y, width, height);
     }
 
     public HorizontalEnemy() {
@@ -123,6 +130,8 @@ public class HorizontalEnemy implements Enemy {
             position.x = startx;
             velocity.scl(-1);
         }
+
+        collBox.setPosition(position);
     }
 
     @Override
