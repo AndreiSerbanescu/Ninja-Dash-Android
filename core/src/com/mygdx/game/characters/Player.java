@@ -26,7 +26,6 @@ public class Player {
 
     private boolean isDead = false;
     private boolean isProtected = true;
-    private Texture protectionOrb;
 
     private Vector2 velocity;
 
@@ -52,6 +51,10 @@ public class Player {
 
     private static float playerUpVelocityY = MyGdxGame.HEIGHT / 5;
 
+    private ProtectionOrb protectionOrb;
+
+    private Texture protText;
+
     public Player(int width, int height, Vector2 position,
                   Rectangle ground1Left, Rectangle ground1Right,
                   Rectangle ground2Left, Rectangle ground2Right,
@@ -75,7 +78,9 @@ public class Player {
         this.ground2Left = ground2Left;
         this.ground2Right = ground2Right;
 
-        protectionOrb = new Texture("star.png");
+        protectionOrb = new ProtectionOrb();
+        protText = new Texture("spr_shield.png");
+
     }
 
 
@@ -258,7 +263,10 @@ public class Player {
            currentFrame.flip(true, false);
        }
        if (isProtected) {
-           sb.draw(protectionOrb, position.x, position.y, width, height);
+           //protectionOrb.render(sb);
+           //TODO put in protectionOrb class
+           float orbRad = width * 1.5f;
+           sb.draw(protText, position.x, position.y, orbRad, orbRad);
        }
         
        sb.end();
@@ -295,6 +303,24 @@ public class Player {
             enemy.die();
         } else {
             die();
+        }
+    }
+
+    public class ProtectionOrb {
+        private Texture texture;
+        private float width;
+        private float height;
+
+        public ProtectionOrb() {
+            texture = new Texture("spr_shield.png");
+            width = Player.this.width * 1.5f;
+        }
+
+        public void render(SpriteBatch sb) {
+            Vector2 pos = Player.this.position;
+            sb.begin();
+            sb.draw(new Texture("spr_shield.png"), pos.x, pos.y);
+            sb.end();
         }
     }
 }

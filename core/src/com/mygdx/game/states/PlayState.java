@@ -45,7 +45,7 @@ public class PlayState extends AbstractState {
     }
 
     private void initBackground() {
-        background = new Texture("background.jpg");
+        background = new Texture("bg2.png");
     }
 
 

@@ -57,7 +57,7 @@ public class HorizontalEnemy extends AbstractEnemy {
     private void init(float x, float y) {
         position = new Vector2(x, y);;
 
-        velocity = new Vector2(MyGdxGame.WIDTH / 4, 0);
+        initVelocity();
 
         if ((new Random()).nextInt(2) == 0) {
             direction = RIGHT;
@@ -74,6 +74,15 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     public HorizontalEnemy() {
         this(0f, 0f);
+    }
+
+    private void initVelocity() {
+        float lowerBound = MyGdxGame.WIDTH / 4;
+        float upperBound = lowerBound * 3;
+
+        float randomOffset = (float)(new Random()).nextDouble();
+
+        velocity = new Vector2(lowerBound + randomOffset * (upperBound - lowerBound), 0);
     }
 
     @Override
