@@ -12,6 +12,9 @@ import com.mygdx.game.states.StartState;
 public class MyGdxGame extends ApplicationAdapter {
 	public static final int WIDTH = 350;
 	public static final int HEIGHT = 700;
+
+	public static final float BORDERWIDTH = WIDTH / 10;
+
 	public static final String TITLE = "Ave Games";
 
     private SpriteBatch batch;

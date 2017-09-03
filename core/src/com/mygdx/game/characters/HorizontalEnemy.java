@@ -44,16 +44,21 @@ public class HorizontalEnemy extends AbstractEnemy {
     }
 
     private void preInit() {
-        startx = 0;
-        endx = MyGdxGame.WIDTH;
+
+        initAnimations();
+
+        Texture enemyTexture = currentAnimation.getFrame().getTexture();
+        float alpha = enemyTexture.getWidth() / enemyTexture.getHeight();
+
+        width = MyGdxGame.WIDTH / 10;
+        height = alpha * MyGdxGame.WIDTH / 10;
+
+        startx = MyGdxGame.BORDERWIDTH;
+        endx = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width;
     }
 
     private void init(float x, float y) {
-        position = new Vector2(x, y);
-
-        //TODO make height according to width
-        width = MyGdxGame.WIDTH / 10;
-        height = MyGdxGame.HEIGHT / 10;
+        position = new Vector2(x, y);;
 
         velocity = new Vector2(MyGdxGame.WIDTH / 4, 0);
 
@@ -65,8 +70,6 @@ public class HorizontalEnemy extends AbstractEnemy {
         velocity.scl(direction);
 
         rope = new Rope();
-
-        initAnimations();
 
         initCollBox(position.x, position.y, width, height);
 
