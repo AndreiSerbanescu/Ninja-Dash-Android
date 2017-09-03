@@ -2,12 +2,10 @@ package com.mygdx.game.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class HorizontalEnemy extends AbstractEnemy {
@@ -30,7 +28,6 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     private float startx;
     private float endx;
-
 
 
 
@@ -86,10 +83,10 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     private void initAnimations() {
         attackAnimation
-                = makeAnimation("enemy/horizontal/snail/snailWalk", "png", 2, 0.5f);
+                = makeAnimation("enemy/horizontal/snail/snailWalk", "png", 2, 0.2f);
 
         deadAnimation
-                = makeAnimation("enemy/horizontal/snail/snailShell", "png", 2, 0.5f);
+                = makeAnimation("enemy/horizontal/snail/snailShell", "png", 2, 0.2f);
 
         currentAnimation = attackAnimation;
     }
@@ -112,9 +109,17 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     @Override
     public void render(SpriteBatch sb) {
+        if (direction == RIGHT) {
+            currentAnimation.getFrame().flip(true, false);
+        }
+
         sb.begin();
         sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
         sb.end();
+
+        if (direction == RIGHT) {
+            currentAnimation.getFrame().flip(true, false);
+        }
 
         rope.render(sb);
     }
@@ -130,12 +135,18 @@ public class HorizontalEnemy extends AbstractEnemy {
         if (position.x >= endx) {
             position.x = endx;
             velocity.scl(-1);
+            flipDirection();
         } else if (position.x < startx) {
             position.x = startx;
             velocity.scl(-1);
+            flipDirection();
         }
 
         updateCollBox();
+    }
+
+    private void flipDirection() {
+        direction *= (-1);
     }
 
     @Override
