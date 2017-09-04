@@ -3,6 +3,7 @@ package com.mygdx.game.characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
@@ -92,22 +93,14 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     private void initAnimations() {
         attackAnimation
-                = makeAnimation("enemy/horizontal/snail/snailWalk", "png", 2, 0.2f);
+                = GameUtils.makeAnimation("enemy/horizontal/snail/snailWalk",
+                "png", 2, 0.2f);
 
         deadAnimation
-                = makeAnimation("enemy/horizontal/snail/snailShell", "png", 2, 0.2f);
+                = GameUtils.makeAnimation("enemy/horizontal/snail/snailShell",
+                "png", 2, 0.2f);
 
         currentAnimation = attackAnimation;
-    }
-
-    private Animation makeAnimation(String rootPath, String format, int frameCount, float cycleTime) {
-        Texture[] textures = new Texture[frameCount];
-
-        for (int i = 0; i < textures.length; i++) {
-            textures[i] = new Texture(rootPath + Integer.toString(i + 1) + "." + format);
-        }
-
-        return new Animation(textures, frameCount, cycleTime);
     }
 
     @Override

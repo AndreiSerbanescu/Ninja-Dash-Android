@@ -1,11 +1,13 @@
 package com.mygdx.game.characters;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
@@ -80,16 +82,16 @@ public class Player {
 
 
     private void initAnimations() {
-        runAnimation
-                = makeAnimation("ninjaAnimation/run/Run__00", 9, "png", 0.2f);
-        jumpAnimation
-                = makeAnimation("ninjaAnimation/jump/Jump__00", 9, "png", 0.2f);
-        slideAnimation
-                = makeAnimation("ninjaAnimation/slide/Slide__00", 9, "png", 0.2f);
-        deadAnimation
-                = makeAnimation("ninjaAnimation/dead/Dead__00", 9, "png", 0.2f);
-        deadAnimationStopped
-                = makeAnimation("ninjaAnimation/dead/Dead_stop", 1, "png", 1f);
+        runAnimation = GameUtils
+                .makeAnimation("ninjaAnimation/run/Run__00", "png", 9, 0.2f);
+        jumpAnimation = GameUtils
+                .makeAnimation("ninjaAnimation/jump/Jump__00", "png", 9, 0.2f);
+        slideAnimation = GameUtils
+                .makeAnimation("ninjaAnimation/slide/Slide__00", "png", 9, 0.2f);
+        deadAnimation = GameUtils
+                .makeAnimation("ninjaAnimation/dead/Dead__00", "png", 9, 0.2f);
+        deadAnimationStopped = GameUtils
+                .makeAnimation("ninjaAnimation/dead/Dead_stop", "png", 1, 1f);
 
 
         currentAnimation = slideAnimation;
@@ -97,20 +99,6 @@ public class Player {
 
     public Rectangle getCollBox() {
         return collBox;
-    }
-
-    private Animation makeAnimation(String pathRoot, int count, String textureFormat, float cycleTime) {
-        String path;
-
-        Texture[] textures = new Texture[count];
-
-        for (int i = 0; i < count; i++) {
-            path = pathRoot + Integer.toString(i) + "." + textureFormat;
-            textures[i] = new Texture(path);
-        }
-
-
-        return new Animation(textures, count, cycleTime);
     }
 
     public int getWidth() {
