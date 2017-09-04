@@ -30,11 +30,13 @@ public class VerticalEnemy extends AbstractEnemy {
 
         if (side == 0) {
             position = new Vector2(MyGdxGame.BORDERWIDTH, y);
+            direction = LEFT;
         } else {
             position = new Vector2(MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width, y);
+            direction = RIGHT;
         }
 
-        velocity = new Vector2(0, MyGdxGame.HEIGHT / 10);
+        velocity = new Vector2(0, - MyGdxGame.HEIGHT / 10);
         initCollBox(position.x, position.y, width, height);
         initAnimations();
     }
@@ -45,7 +47,7 @@ public class VerticalEnemy extends AbstractEnemy {
 
     private void initWidthHeight() {
         Texture texture = new Texture("enemy/vertical/p1_walk00.png");
-        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 10);
+        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 7);
         width = widthHeight.x;
         height = widthHeight.y;
     }
@@ -58,13 +60,23 @@ public class VerticalEnemy extends AbstractEnemy {
     @Override
     public void die() {
         currentAnimation = deadAnimation;
+        isDead = true;
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        if (direction == RIGHT) {
+            currentAnimation.getFrame().flip(true, false);
+        }
+
+
         sb.begin();
         sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
         sb.end();
+
+        if (direction == RIGHT) {
+            currentAnimation.getFrame().flip(true, false);
+        }
     }
 
     @Override
@@ -74,6 +86,7 @@ public class VerticalEnemy extends AbstractEnemy {
         velocity.scl(1f / deltaTime);
 
         updateCollBox();
+        currentAnimation.update(deltaTime);
     }
 
     @Override
@@ -88,8 +101,10 @@ public class VerticalEnemy extends AbstractEnemy {
     }
 
     private void initAnimations() {
-        runAnimation = GameUtils.makeAnimation("enemy/vertical/p1_walk0", "png", 9, 1f);
-        deadAnimation = GameUtils.makeAnimation("enemy/vertical/p1_hurt", "png", 1, 1f);
+        runAnimation = GameUtils
+                .makeAnimation("enemy/vertical/p1_walk0", "png", 9, 0.2f);
+        deadAnimation = GameUtils
+                .makeAnimation("enemy/vertical/p1_hurt", "png", 1, 1f);
 
         currentAnimation = runAnimation;
     }

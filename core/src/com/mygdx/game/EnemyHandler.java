@@ -6,10 +6,7 @@ import com.mygdx.game.characters.HorizontalEnemy;
 import com.mygdx.game.characters.Player;
 import com.mygdx.game.characters.VerticalEnemy;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class EnemyHandler {
 
@@ -29,7 +26,6 @@ public class EnemyHandler {
     }
 
     public void update(final float deltaTime) {
-
         float spawnOffset = MyGdxGame.HEIGHT;
         float spawnBoundaryInc = MyGdxGame.HEIGHT / 3;
 
@@ -38,8 +34,16 @@ public class EnemyHandler {
         }
 
         if (player.getPosition().y > spawnBoundary) {
+            Random random = new Random();
             //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
-            Enemy newEnemy = new VerticalEnemy(spawnBoundary + spawnOffset);
+            Enemy newEnemy;
+
+            if (random.nextInt(2) == 0) {
+                newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
+            } else {
+                newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
+            }
+
             spawnBoundary += spawnBoundaryInc;
             enemies.add(newEnemy);
         }
