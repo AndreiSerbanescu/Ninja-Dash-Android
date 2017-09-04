@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.characters.Enemy;
 import com.mygdx.game.characters.HorizontalEnemy;
 import com.mygdx.game.characters.Player;
+import com.mygdx.game.characters.VerticalEnemy;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -37,8 +38,8 @@ public class EnemyHandler {
         }
 
         if (player.getPosition().y > spawnBoundary) {
-            Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
-
+            //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
+            Enemy newEnemy = new VerticalEnemy(spawnBoundary + spawnOffset);
             spawnBoundary += spawnBoundaryInc;
             enemies.add(newEnemy);
         }

@@ -46,10 +46,9 @@ public class HorizontalEnemy extends AbstractEnemy {
         initAnimations();
 
         Texture enemyTexture = currentAnimation.getFrame().getTexture();
-        float alpha = enemyTexture.getWidth() / enemyTexture.getHeight();
-
-        width = MyGdxGame.WIDTH / 10;
-        height = alpha * MyGdxGame.WIDTH / 10;
+        Vector2 widthHeight = getNewWidthHeight(enemyTexture.getWidth(), enemyTexture.getHeight(), 10);
+        width = widthHeight.x;
+        height = widthHeight.y;
 
         startx = MyGdxGame.BORDERWIDTH;
         endx = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width;
@@ -92,12 +91,10 @@ public class HorizontalEnemy extends AbstractEnemy {
     }
 
     private void initAnimations() {
-        attackAnimation
-                = GameUtils.makeAnimation("enemy/horizontal/snail/snailWalk",
+        attackAnimation = GameUtils.makeAnimation("enemy/horizontal/snail/snailWalk",
                 "png", 2, 0.2f);
 
-        deadAnimation
-                = GameUtils.makeAnimation("enemy/horizontal/snail/snailShell",
+        deadAnimation = GameUtils.makeAnimation("enemy/horizontal/snail/snailShell",
                 "png", 2, 0.2f);
 
         currentAnimation = attackAnimation;

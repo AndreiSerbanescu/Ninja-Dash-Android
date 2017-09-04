@@ -1,8 +1,13 @@
 package com.mygdx.game.characters;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameUtils;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
+
+import java.util.Random;
 
 public class VerticalEnemy extends AbstractEnemy {
 
@@ -17,6 +22,34 @@ public class VerticalEnemy extends AbstractEnemy {
     private final int LEFT = -1;
 
 
+    private float width;
+    private float height;
+
+    public VerticalEnemy(int side, float y) {
+        initWidthHeight();
+
+        if (side == 0) {
+            position = new Vector2(MyGdxGame.BORDERWIDTH, y);
+        } else {
+            position = new Vector2(MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width, y);
+        }
+
+        velocity = new Vector2(0, MyGdxGame.HEIGHT / 10);
+        initCollBox(position.x, position.y, width, height);
+        initAnimations();
+    }
+
+    public VerticalEnemy(float y) {
+        this((new Random()).nextInt(2), y);
+    }
+
+    private void initWidthHeight() {
+        Texture texture = new Texture("enemy/vertical/p1_walk00.png");
+        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 10);
+        width = widthHeight.x;
+        height = widthHeight.y;
+    }
+
     @Override
     public void attack() {
 
@@ -24,26 +57,40 @@ public class VerticalEnemy extends AbstractEnemy {
 
     @Override
     public void die() {
-
+        currentAnimation = deadAnimation;
     }
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.begin();
+        sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
+        sb.end();
     }
 
     @Override
     public void update(float deltaTime) {
+        velocity.scl(deltaTime);
+        position.add(velocity);
+        velocity.scl(1f / deltaTime);
 
+        updateCollBox();
     }
 
     @Override
     public void dispose() {
-
+        deadAnimation.dispose();
+        runAnimation.dispose();
     }
 
     @Override
     public Vector2 getPosition() {
-        return null;
+        return position;
+    }
+
+    private void initAnimations() {
+        runAnimation = GameUtils.makeAnimation("enemy/vertical/p1_walk0", "png", 9, 1f);
+        deadAnimation = GameUtils.makeAnimation("enemy/vertical/p1_hurt", "png", 1, 1f);
+
+        currentAnimation = runAnimation;
     }
 }
