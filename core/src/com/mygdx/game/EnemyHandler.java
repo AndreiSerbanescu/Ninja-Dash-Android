@@ -10,8 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-//TODO remove hard-coding and magic variables
-
 public class EnemyHandler {
 
     private Set<Enemy> enemies;
