@@ -20,26 +20,28 @@ public class EnemyHandler {
 
     public EnemyHandler(Player player) {
         enemies = new LinkedHashSet<Enemy>();
-        spawnBoundary = 500;
+        spawnBoundary = MyGdxGame.HEIGHT * 0.8f;
         this.player = player;
         initEnemies();
     }
 
     private void initEnemies() {
-        for (int i = 0; i < 3; i++) {
-            enemies.add(new HorizontalEnemy(0, 200 * i));
-        }
+
     }
 
     public void update(final float deltaTime) {
+
+        float spawnOffset = MyGdxGame.HEIGHT;
+        float spawnBoundaryInc = MyGdxGame.HEIGHT / 3;
+
         for (Enemy enemy : enemies) {
             enemy.update(deltaTime);
         }
 
         if (player.getPosition().y > spawnBoundary) {
-            Enemy newEnemy = new HorizontalEnemy(spawnBoundary + 1000);
+            Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
 
-            spawnBoundary += 300;
+            spawnBoundary += spawnBoundaryInc;
             enemies.add(newEnemy);
         }
 

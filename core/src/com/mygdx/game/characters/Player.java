@@ -10,10 +10,6 @@ import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
 
 
-
-
-//TODO remove magic numbers
-
 public class Player {
 
     private static final int LEFT = -1;
@@ -29,10 +25,10 @@ public class Player {
 
     private Vector2 velocity;
 
-    private float jumpVelocityX = 700;
+    private float jumpVelocityX = MyGdxGame.WIDTH * 2;
 
     private int orientation;
-    private int margin = 30;
+    private float margin = MyGdxGame.WIDTH / 10;
 
     private Rectangle collBox;
 
@@ -262,10 +258,6 @@ public class Player {
            currentFrame.flip(true, false);
        }
        if (isProtected) {
-           //protectionOrb.render(sb);
-           //TODO put in protectionOrb class
-           float orbRad = width * 1.5f;
-           //sb.draw(protectionOrb.texture, position.x, position.y, orbRad, orbRad);
             protectionOrb.render(sb);
        }
         
