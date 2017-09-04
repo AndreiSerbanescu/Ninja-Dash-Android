@@ -53,7 +53,6 @@ public class Player {
 
     private ProtectionOrb protectionOrb;
 
-    private Texture protText;
 
     public Player(int width, int height, Vector2 position,
                   Rectangle ground1Left, Rectangle ground1Right,
@@ -79,7 +78,7 @@ public class Player {
         this.ground2Right = ground2Right;
 
         protectionOrb = new ProtectionOrb();
-        protText = new Texture("spr_shield.png");
+        //protText = new Texture("spr_shield.png");
 
     }
 
@@ -266,7 +265,8 @@ public class Player {
            //protectionOrb.render(sb);
            //TODO put in protectionOrb class
            float orbRad = width * 1.5f;
-           sb.draw(protText, position.x, position.y, orbRad, orbRad);
+           //sb.draw(protectionOrb.texture, position.x, position.y, orbRad, orbRad);
+            protectionOrb.render(sb);
        }
         
        sb.end();
@@ -313,14 +313,31 @@ public class Player {
 
         public ProtectionOrb() {
             texture = new Texture("spr_shield.png");
-            width = Player.this.width * 1.5f;
+            width = Player.this.width * 3f;
+            height = width;
         }
 
         public void render(SpriteBatch sb) {
-            Vector2 pos = Player.this.position;
-            sb.begin();
-            sb.draw(new Texture("spr_shield.png"), pos.x, pos.y);
-            sb.end();
+            Vector2 pos = getPosition();
+            sb.draw(texture, pos.x, pos.y, width, height);
+        }
+
+        public float getWidth() {
+            return width;
+        }
+
+        public float getHeight() {
+            return height;
+        }
+
+        public Vector2 getPosition() {
+            Vector2 playerPos = position;
+            float playerWidth = Player.this.width;
+            float playerHeight = Player.this.height;
+
+            Vector2 centre = new Vector2(playerPos.x + playerWidth / 2, playerPos.y + playerHeight / 2);
+            Vector2 orbPos = new Vector2(centre.x - width / 2, centre.y - height / 2);
+            return orbPos;
         }
     }
 }
