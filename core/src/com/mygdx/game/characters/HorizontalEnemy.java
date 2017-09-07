@@ -104,6 +104,7 @@ public class HorizontalEnemy extends AbstractEnemy {
     public void die() {
         currentAnimation = deadAnimation;
         isDead = true;
+        velocity.x = 0;
     }
 
     @Override

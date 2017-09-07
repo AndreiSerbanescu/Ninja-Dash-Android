@@ -61,6 +61,7 @@ public class VerticalEnemy extends AbstractEnemy {
     public void die() {
         currentAnimation = deadAnimation;
         isDead = true;
+        velocity.y = 0;
     }
 
     @Override
