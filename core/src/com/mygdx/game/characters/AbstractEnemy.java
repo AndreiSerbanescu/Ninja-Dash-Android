@@ -45,4 +45,8 @@ public abstract class AbstractEnemy implements Enemy {
         *
         * */
     }
+
+    public Vector2 getPosition() {
+        return position;
+    }
 }

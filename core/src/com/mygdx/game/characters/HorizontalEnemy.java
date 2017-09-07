@@ -154,10 +154,6 @@ public class HorizontalEnemy extends AbstractEnemy {
         attackAnimation.dispose();
     }
 
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
 
     private class Rope {
         private Vector2 position;

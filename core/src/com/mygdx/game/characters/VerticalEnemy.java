@@ -96,10 +96,6 @@ public class VerticalEnemy extends AbstractEnemy {
         runAnimation.dispose();
     }
 
-    @Override
-    public Vector2 getPosition() {
-        return position;
-    }
 
     private void initAnimations() {
         runAnimation = GameUtils
