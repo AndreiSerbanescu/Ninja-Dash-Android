@@ -1,10 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.characters.Enemy;
-import com.mygdx.game.characters.HorizontalEnemy;
-import com.mygdx.game.characters.Player;
-import com.mygdx.game.characters.VerticalEnemy;
+import com.mygdx.game.characters.*;
 
 import java.util.*;
 
@@ -37,12 +34,19 @@ public class EnemyHandler {
             Random random = new Random();
             //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
             Enemy newEnemy;
+            int enemyType = random.nextInt(3);
 
-            if (random.nextInt(2) == 0) {
+
+            newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
+            /*
+            if (enemyType == 0) {
                 newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
-            } else {
+            } else if (enemyType == 1) {
                 newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
+            } else {
+                newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
             }
+            */
 
             spawnBoundary += spawnBoundaryInc;
             enemies.add(newEnemy);

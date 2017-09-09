@@ -1,8 +1,16 @@
 package com.mygdx.game.characters;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameUtils;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
+
+import java.util.Random;
+
+import javax.xml.bind.ValidationEventLocator;
 
 public class DiagonalEnemy  extends AbstractEnemy {
 
@@ -17,8 +25,52 @@ public class DiagonalEnemy  extends AbstractEnemy {
     private Vector2 velocity;
     private int direction;
 
+    private Texture texture;
+
     private static final int LEFT = -1;
     private static final int  RIGHT = 1;
+
+
+    public DiagonalEnemy(int side, float y) {
+        super();
+
+        Random random = new Random();
+
+        float screenWidth = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH * 2;
+        int alpha = random.nextInt(50);
+
+        float diagonalVelocity = 1f * MyGdxGame.WIDTH / 2;
+        velocity = new Vector2(diagonalVelocity * (float)Math.cos(1d * alpha), diagonalVelocity * (float)Math.sin(1d * alpha));
+
+        texture = new Texture("enemy/diagonal/image.png");
+
+        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 10);
+        width = widthHeight.x;
+        height = widthHeight.y;
+
+
+        float posx;
+        if (side == 0) {
+            posx = MyGdxGame.BORDERWIDTH;
+            direction = RIGHT;
+        } else {
+            posx = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width;
+            direction = LEFT;
+        }
+        position = new Vector2(posx, y);
+
+        initCollBox(position.x, position.y, width, height);
+        initAnimations();
+    }
+
+    private void initAnimations() {
+        attackAnimation
+                = GameUtils.makeAnimation("enemy/diagonal/flyFly", "png", 2, 0.1f);
+
+        deadAnimation
+                = GameUtils.makeAnimation("enemy/diagonal/flyDead", "png", 1, 1f);
+        currentAnimation = attackAnimation;
+    }
 
     @Override
     public void attack() {
@@ -28,6 +80,8 @@ public class DiagonalEnemy  extends AbstractEnemy {
     @Override
     public void die() {
         currentAnimation = deadAnimation;
+        velocity = new Vector2(0, 0);
+        isDead = true;
     }
 
     @Override
@@ -41,9 +95,24 @@ public class DiagonalEnemy  extends AbstractEnemy {
 
     @Override
     public void update(float deltaTime) {
-        velocity.scl(direction * deltaTime);
+
+
+        velocity.scl(deltaTime);
         position.add(velocity);
         velocity.scl(1f / deltaTime);
+
+
+        currentAnimation.update(deltaTime);
+        updateCollBox();
+
+        if (position.x > MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width) {
+            position.x = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width;
+            velocity.scl(-1);
+        }
+        if (position.x < MyGdxGame.BORDERWIDTH) {
+            position.x = MyGdxGame.BORDERWIDTH;
+            velocity.scl(-1);
+        }
     }
 
     @Override
