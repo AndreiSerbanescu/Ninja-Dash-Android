@@ -16,6 +16,9 @@ public class VerticalEnemy extends AbstractEnemy {
     private Animation deadAnimation;
     private Animation currentAnimation;
 
+    private static Texture[] attackTextures;
+    private static Texture[] deadTextures;
+
     private Vector2 velocity;
     private int direction;
     private final int RIGHT = 1;
@@ -26,6 +29,8 @@ public class VerticalEnemy extends AbstractEnemy {
     private float height;
 
     public VerticalEnemy(int side, float y) {
+
+        initAnimations();
         initWidthHeight();
 
         if (side == 0) {
@@ -36,9 +41,8 @@ public class VerticalEnemy extends AbstractEnemy {
             direction = RIGHT;
         }
 
-        velocity = new Vector2(0, - MyGdxGame.HEIGHT / 10);
+        velocity = new Vector2(0, - MyGdxGame.HEIGHT / 5);
         initCollBox(position.x, position.y, width, height);
-        initAnimations();
     }
 
     public VerticalEnemy(float y) {
@@ -46,7 +50,7 @@ public class VerticalEnemy extends AbstractEnemy {
     }
 
     private void initWidthHeight() {
-        Texture texture = new Texture("enemy/vertical/p1_walk00.png");
+        Texture texture = currentAnimation.getFrame().getTexture();
         Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 7);
         width = widthHeight.x;
         height = widthHeight.y;
@@ -98,11 +102,25 @@ public class VerticalEnemy extends AbstractEnemy {
 
 
     private void initAnimations() {
-        runAnimation = GameUtils
-                .makeAnimation("enemy/vertical/p1_walk0", "png", 9, 0.2f);
-        deadAnimation = GameUtils
-                .makeAnimation("enemy/vertical/p1_hurt", "png", 1, 1f);
+        runAnimation = new Animation(attackTextures, attackTextures.length, 1f);
+        deadAnimation = new Animation(deadTextures, deadTextures.length, 1f, false);
 
         currentAnimation = runAnimation;
+    }
+
+    public static void initTextures() {
+        attackTextures = GameUtils
+                .makeTextureArray("enemy/vertical/move/skeleton-Move_", "png", 18);
+        deadTextures = GameUtils
+                .makeTextureArray("enemy/vertical/die/skeleton-Suicide_", "png", 26);
+    }
+
+    public static void disposeTextures() {
+        for (Texture attackTexture : attackTextures) {
+            attackTexture.dispose();
+        }
+        for (Texture deadTexture : deadTextures) {
+            deadTexture.dispose();
+        }
     }
 }

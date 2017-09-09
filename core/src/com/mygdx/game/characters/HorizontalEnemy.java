@@ -100,7 +100,7 @@ public class HorizontalEnemy extends AbstractEnemy {
     public void initAnimations() {
         attackAnimation = new Animation(attackTextures, attackTextures.length, 1f);
 
-        deadAnimation = new Animation(deadTextures, deadTextures.length, 1f, false);
+        deadAnimation = new Animation(deadTextures, deadTextures.length, 0.5f, false);
 
         currentAnimation = attackAnimation;
     }
@@ -192,4 +192,13 @@ public class HorizontalEnemy extends AbstractEnemy {
         }
     }
 
+    public static void disposeTextures() {
+        for (Texture attackTexture : attackTextures) {
+            attackTexture.dispose();
+        }
+
+        for (Texture deadTexture : deadTextures) {
+            deadTexture.dispose();
+        }
+    }
 }

@@ -20,6 +20,8 @@ public class EnemyHandler {
 
     private void initEnemies() {
         HorizontalEnemy.initTextures();
+        DiagonalEnemy.initTextures();
+        VerticalEnemy.initTextures();
     }
 
     public void update(final float deltaTime) {
@@ -37,9 +39,6 @@ public class EnemyHandler {
             int enemyType = random.nextInt(3);
 
 
-            //newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
-            newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
-            /*
             if (enemyType == 0) {
                 newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
             } else if (enemyType == 1) {
@@ -47,7 +46,6 @@ public class EnemyHandler {
             } else {
                 newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
             }
-            */
 
             spawnBoundary += spawnBoundaryInc;
             enemies.add(newEnemy);
@@ -97,6 +95,17 @@ public class EnemyHandler {
     public void kill(Enemy enemy) {
         enemies.remove(enemy);
         enemy.die();
+    }
+
+    public void dispose() {
+        for (Enemy enemy : enemies) {
+            enemy.dispose();
+        }
+        enemies.clear();
+
+        DiagonalEnemy.disposeTextures();
+        HorizontalEnemy.disposeTextures();
+        VerticalEnemy.disposeTextures();
     }
 
 }

@@ -19,6 +19,9 @@ public class DiagonalEnemy  extends AbstractEnemy {
     private Animation deadAnimation;
     private Animation attackAnimation;
 
+    private static Texture[] attackTextures;
+    private static Texture[] deadTextures;
+
     private float width;
     private float height;
 
@@ -29,6 +32,15 @@ public class DiagonalEnemy  extends AbstractEnemy {
 
     private static final int LEFT = -1;
     private static final int  RIGHT = 1;
+
+
+
+    public static void initTextures() {
+        attackTextures = GameUtils
+                .makeTextureArray("enemy/diagonal/move/skeleton-Move_", "png", 18);
+        deadTextures = GameUtils
+                .makeTextureArray("enemy/diagonal/die/skeleton-Death_", "png", 22);
+    }
 
 
     public DiagonalEnemy(int side, float y) {
@@ -44,7 +56,7 @@ public class DiagonalEnemy  extends AbstractEnemy {
 
         texture = new Texture("enemy/diagonal/image.png");
 
-        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 10);
+        Vector2 widthHeight = getNewWidthHeight(texture.getWidth(), texture.getHeight(), 5);
         width = widthHeight.x;
         height = widthHeight.y;
 
@@ -64,11 +76,10 @@ public class DiagonalEnemy  extends AbstractEnemy {
     }
 
     private void initAnimations() {
-        attackAnimation
-                = GameUtils.makeAnimation("enemy/diagonal/flyFly", "png", 2, 0.1f);
+        attackAnimation = new Animation(attackTextures, attackTextures.length, 1f);
 
-        deadAnimation
-                = GameUtils.makeAnimation("enemy/diagonal/flyDead", "png", 1, 1f);
+        deadAnimation = new Animation(deadTextures, deadTextures.length, 0.5f, false);
+
         currentAnimation = attackAnimation;
     }
 
@@ -119,6 +130,15 @@ public class DiagonalEnemy  extends AbstractEnemy {
     public void dispose() {
         deadAnimation.dispose();
         attackAnimation.dispose();
+    }
+
+    public static void disposeTextures() {
+        for (Texture attackTexture : attackTextures) {
+            attackTexture.dispose();
+        }
+        for (Texture deadTexture : deadTextures) {
+            deadTexture.dispose();
+        }
     }
 
     @Override

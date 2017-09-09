@@ -59,10 +59,6 @@ public class Animation {
     }
 
     public void dispose() {
-
-        for (int i = 0; i < frames.size; i++) {
-            frames.get(i).getTexture().dispose();
-        }
         frames.clear();
     }
 
