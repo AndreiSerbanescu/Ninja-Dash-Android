@@ -19,7 +19,7 @@ public class EnemyHandler {
     }
 
     private void initEnemies() {
-
+        HorizontalEnemy.initTextures();
     }
 
     public void update(final float deltaTime) {
@@ -37,7 +37,8 @@ public class EnemyHandler {
             int enemyType = random.nextInt(3);
 
 
-            newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
+            //newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
+            newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
             /*
             if (enemyType == 0) {
                 newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);

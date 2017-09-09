@@ -7,12 +7,16 @@ public class GameUtils {
 
 
     public static Animation makeAnimation(String rootPath, String format, int frameCount, float cycleTime) {
-        Texture[] textures = new Texture[frameCount];
+        return new Animation(makeTextureArray(rootPath, format, frameCount), frameCount, cycleTime);
+    }
 
-        for (int i = 0; i < textures.length; i++) {
+    public static Texture[] makeTextureArray(String rootPath, String format, int number) {
+        Texture[] textures = new Texture[number];
+
+        for (int i = 0; i < number; i++) {
             textures[i] = new Texture(rootPath + Integer.toString(i) + "." + format);
         }
 
-        return new Animation(textures, frameCount, cycleTime);
+        return textures;
     }
 }

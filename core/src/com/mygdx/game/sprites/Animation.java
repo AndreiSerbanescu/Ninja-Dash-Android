@@ -10,10 +10,16 @@ public class Animation {
     private float currentFrameTime;
     private int frameCount;
     private int frame;
+    private TextureRegion endFrame;
 
-    private boolean loopedOnce = false;
+    private boolean cycle;
+    private boolean loopedOnce;
 
     public Animation(Texture[] textures, int frameCount, float cycleTime) {
+        this(textures, frameCount, cycleTime, true);
+    }
+
+    public Animation(Texture[] textures, int frameCount, float cycleTime, boolean cycle) {
         frames = new Array<TextureRegion>();
 
         for (int i = 0; i < textures.length; i++) {
@@ -23,6 +29,8 @@ public class Animation {
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
         frame = 0;
+        this.cycle = cycle;
+        endFrame = frames.get(frames.size - 1);
     }
 
     public void update(float deltaTime) {
@@ -43,6 +51,10 @@ public class Animation {
     }
 
     public TextureRegion getFrame() {
+        if (!cycle && loopedOnce) {
+            return endFrame;
+        }
+
         return frames.get(frame);
     }
 

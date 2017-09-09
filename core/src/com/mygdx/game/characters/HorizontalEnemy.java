@@ -23,14 +23,22 @@ public class HorizontalEnemy extends AbstractEnemy {
     private float height;
 
 
+    private Animation currentAnimation;
     private Animation deadAnimation;
     private Animation attackAnimation;
-    private Animation currentAnimation;
+
+    private static Texture[] attackTextures;
+    private static Texture[] deadTextures;
 
     private float startx;
     private float endx;
 
-
+    public static void initTextures() {
+        attackTextures = GameUtils
+                .makeTextureArray("enemy/horizontal/move/skeleton-Move_", "png", 17);
+        deadTextures = GameUtils
+                .makeTextureArray("enemy/horizontal/die/skeleton-Death_", "png", 17);
+    }
 
     public HorizontalEnemy(float x, float y) {
         preInit();
@@ -42,11 +50,10 @@ public class HorizontalEnemy extends AbstractEnemy {
     }
 
     private void preInit() {
-
         initAnimations();
 
         Texture enemyTexture = currentAnimation.getFrame().getTexture();
-        Vector2 widthHeight = getNewWidthHeight(enemyTexture.getWidth(), enemyTexture.getHeight(), 10);
+        Vector2 widthHeight = getNewWidthHeight(enemyTexture.getWidth(), enemyTexture.getHeight(), 5);
         width = widthHeight.x;
         height = widthHeight.y;
 
@@ -90,12 +97,10 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     }
 
-    private void initAnimations() {
-        attackAnimation = GameUtils.makeAnimation("enemy/horizontal/snail/snailWalk",
-                "png", 2, 0.2f);
+    public void initAnimations() {
+        attackAnimation = new Animation(attackTextures, attackTextures.length, 1f);
 
-        deadAnimation = GameUtils.makeAnimation("enemy/horizontal/snail/snailShell",
-                "png", 2, 0.2f);
+        deadAnimation = new Animation(deadTextures, deadTextures.length, 1f, false);
 
         currentAnimation = attackAnimation;
     }
@@ -109,7 +114,7 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     @Override
     public void render(SpriteBatch sb) {
-        if (direction == RIGHT) {
+        if (direction == LEFT) {
             currentAnimation.getFrame().flip(true, false);
         }
 
@@ -117,7 +122,7 @@ public class HorizontalEnemy extends AbstractEnemy {
         sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
         sb.end();
 
-        if (direction == RIGHT) {
+        if (direction == LEFT) {
             currentAnimation.getFrame().flip(true, false);
         }
 
@@ -151,7 +156,6 @@ public class HorizontalEnemy extends AbstractEnemy {
 
     @Override
     public void dispose() {
-        attackAnimation.dispose();
     }
 
 
