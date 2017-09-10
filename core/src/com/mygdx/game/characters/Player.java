@@ -269,7 +269,7 @@ public class Player {
 
         if (enemy.isInvincible()) {
             if (isProtected) {
-                isProtected = false;
+                //isProtected = false;
                 enemy.die();
             } else {
                 //die();
@@ -279,7 +279,7 @@ public class Player {
 
         if (!isJumping) {
             if (isProtected) {
-                isProtected = false;
+                //isProtected = false;
                 enemy.die();
             } else {
                 //die();
