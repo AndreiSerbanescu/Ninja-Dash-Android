@@ -166,9 +166,9 @@ public class HorizontalEnemy extends AbstractEnemy {
         private float height;
 
         private Rope() {
-            width = MyGdxGame.WIDTH;
+            width = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH * 2;
             height = MyGdxGame.HEIGHT / 150;
-            position = new Vector2(0, 0);
+            position = new Vector2(MyGdxGame.BORDERWIDTH, 0);
             updatePos();
             texture = new Texture("tiles/stoneCenter.png");
         }

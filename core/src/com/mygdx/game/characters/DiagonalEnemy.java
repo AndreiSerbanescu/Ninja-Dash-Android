@@ -48,7 +48,6 @@ public class DiagonalEnemy  extends AbstractEnemy {
 
         Random random = new Random();
 
-        float screenWidth = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH * 2;
         int alpha = random.nextInt(50);
 
         float diagonalVelocity = 1f * MyGdxGame.WIDTH / 2;
