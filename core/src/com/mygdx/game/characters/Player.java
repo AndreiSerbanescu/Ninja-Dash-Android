@@ -36,11 +36,9 @@ public class Player {
 
 
     private Animation runAnimation;
-    private Animation jumpAnimation;
     private Animation currentAnimation;
-    private Animation slideAnimation;
+    private Animation jumpAnimation;
     private Animation deadAnimation;
-    private Animation deadAnimationStopped;
 
     private Rectangle ground1Left, ground1Right, ground2Left, ground2Right;
     private OrthographicCamera camera;
@@ -85,16 +83,11 @@ public class Player {
         runAnimation = GameUtils
                 .makeAnimation("ninjaAnimation/run/Run__00", "png", 9, 0.2f);
         jumpAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/jump/Jump__00", "png", 9, 0.2f);
-        slideAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/slide/Slide__00", "png", 9, 0.2f);
+                .makeAnimation("ninjaAnimation/attack/Glide_00", "png", 10, 0.2f);
         deadAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/dead/Dead__00", "png", 9, 0.2f);
-        deadAnimationStopped = GameUtils
-                .makeAnimation("ninjaAnimation/dead/Dead_stop", "png", 1, 1f);
+                .makeAnimation("ninjaAnimation/dead/Dead__00", "png", 10, 0.2f, false);
 
-
-        currentAnimation = slideAnimation;
+        currentAnimation = jumpAnimation;
     }
 
     public Rectangle getCollBox() {
@@ -123,14 +116,12 @@ public class Player {
 
     public void update(float deltaTime) {
 
-        if (isDead && deadAnimation.loopedOnce()) {
-            currentAnimation = deadAnimationStopped;
-        } else if (isDead && !deadAnimation.loopedOnce()) {
+        if (isDead) {
             currentAnimation = deadAnimation;
         } else if (isGrounded()) {
             currentAnimation = runAnimation;
         } else {
-            currentAnimation = slideAnimation;
+            currentAnimation = jumpAnimation;
         }
 
 
@@ -266,7 +257,7 @@ public class Player {
         runAnimation.dispose();
         jumpAnimation.dispose();
         currentAnimation.dispose();
-        slideAnimation.dispose();
+        jumpAnimation.dispose();
     }
 
     public float getNonJumpPosY() {
@@ -283,11 +274,17 @@ public class Player {
             return;
         }
 
-        if (!isJumping) {
-            die();
+        if (enemy.isInvincible()) {
+            if (isProtected) {
+                isProtected = false;
+                enemy.die();
+            } else {
+                die();
+            }
             return;
         }
-        if (enemy.isInvincible()) {
+
+        if (!isJumping) {
             if (isProtected) {
                 isProtected = false;
                 enemy.die();

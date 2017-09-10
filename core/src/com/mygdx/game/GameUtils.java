@@ -6,8 +6,12 @@ import com.mygdx.game.sprites.Animation;
 public class GameUtils {
 
 
+
     public static Animation makeAnimation(String rootPath, String format, int frameCount, float cycleTime) {
-        return new Animation(makeTextureArray(rootPath, format, frameCount), frameCount, cycleTime);
+        return makeAnimation(rootPath, format, frameCount, cycleTime, true);
+    }
+    public static Animation makeAnimation(String rootPath, String format, int frameCount, float cycleTime, boolean cycle) {
+        return new Animation(makeTextureArray(rootPath, format, frameCount), frameCount, cycleTime, cycle);
     }
 
     public static Texture[] makeTextureArray(String rootPath, String format, int number) {

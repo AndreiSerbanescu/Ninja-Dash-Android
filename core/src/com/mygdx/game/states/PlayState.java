@@ -10,9 +10,13 @@ import com.mygdx.game.EnemyHandler;
 import com.mygdx.game.GameStateManager;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Player;
+import java.util.Random;
 
 public class PlayState extends AbstractState {
     private Player player;
+
+
+    private Texture[] bgs;
 
     private Texture background;
     private Border border;
@@ -45,7 +49,13 @@ public class PlayState extends AbstractState {
     }
 
     private void initBackground() {
-        background = new Texture("bg2.png");
+        int bgsNo = 1;
+        bgs = new Texture[bgsNo];
+        for (int i = 0; i < bgs.length; i++) {
+            bgs[i] = new Texture("background/" + Integer.toString(i + 1) + ".png");
+        }
+
+        background = bgs[(new Random()).nextInt(bgsNo)];
     }
 
 
