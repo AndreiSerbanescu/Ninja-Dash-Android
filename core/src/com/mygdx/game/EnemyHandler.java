@@ -10,11 +10,14 @@ public class EnemyHandler {
     private Set<Enemy> enemies;
     private Player player;
     private float spawnBoundary;
+    private DifficultyHandler diffHand;
 
     public EnemyHandler(Player player) {
         enemies = new LinkedHashSet<Enemy>();
         spawnBoundary = MyGdxGame.HEIGHT * 0.8f;
         this.player = player;
+        diffHand = new DifficultyHandler(player);
+
         initEnemies();
     }
 
@@ -26,7 +29,9 @@ public class EnemyHandler {
 
     public void update(final float deltaTime) {
         float spawnOffset = MyGdxGame.HEIGHT;
-        float spawnBoundaryInc = MyGdxGame.HEIGHT / 3;
+
+
+        float spawnBoundaryInc = diffHand.getSpawnIncremenet();
 
         for (Enemy enemy : enemies) {
             enemy.update(deltaTime);
@@ -35,20 +40,23 @@ public class EnemyHandler {
         if (player.getPosition().y > spawnBoundary) {
             Random random = new Random();
             //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
-            Enemy newEnemy;
-            int enemyType = random.nextInt(3);
+
+            for (int i = 0; i < diffHand.getSpawnNumber(); i++) {
+                Enemy newEnemy;
+                int enemyType = random.nextInt(3);
 
 
-            if (enemyType == 0) {
-                newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
-            } else if (enemyType == 1) {
-                newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
-            } else {
-                newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
+                if (enemyType == 0) {
+                    newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
+                } else if (enemyType == 1) {
+                    newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
+                } else {
+                    newEnemy = new DiagonalEnemy(0, spawnBoundary + spawnOffset);
+                }
+
+                spawnBoundary += spawnBoundaryInc;
+                enemies.add(newEnemy);
             }
-
-            spawnBoundary += spawnBoundaryInc;
-            enemies.add(newEnemy);
         }
 
 
