@@ -37,6 +37,8 @@ public class EnemyHandler {
             enemy.update(deltaTime);
         }
 
+        diffHand.update();
+
         if (player.getPosition().y > spawnBoundary) {
             Random random = new Random();
             //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
@@ -57,6 +59,7 @@ public class EnemyHandler {
                 spawnBoundary += spawnBoundaryInc;
                 enemies.add(newEnemy);
             }
+
         }
 
 

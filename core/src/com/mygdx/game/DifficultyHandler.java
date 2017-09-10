@@ -27,6 +27,7 @@ public class DifficultyHandler {
     }
 
     public int getSpawnIncremenet() {
+        System.out.println(difficulty + " " + player.getPosition().y + " " + diffTresholdMedium);
         switch (difficulty) {
             case EASY:
                 return MyGdxGame.HEIGHT / 2;
