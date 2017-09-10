@@ -8,8 +8,6 @@ public interface Enemy {
 
     boolean isInvincible();
 
-    void attack();
-
     void die();
 
     void render(SpriteBatch sb);

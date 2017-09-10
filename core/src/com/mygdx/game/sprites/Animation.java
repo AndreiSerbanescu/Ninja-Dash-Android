@@ -61,8 +61,4 @@ public class Animation {
     public void dispose() {
         frames.clear();
     }
-
-    public boolean loopedOnce() {
-        return loopedOnce;
-    }
 }

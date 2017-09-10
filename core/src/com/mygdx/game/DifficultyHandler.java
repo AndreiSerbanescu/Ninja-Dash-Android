@@ -1,8 +1,6 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.characters.Player;
-import jdk.internal.dynalink.support.DefaultInternalObjectFilter;
 
 public class DifficultyHandler {
 

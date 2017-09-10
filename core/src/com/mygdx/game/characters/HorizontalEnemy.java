@@ -92,10 +92,6 @@ public class HorizontalEnemy extends AbstractEnemy {
         velocity = new Vector2(lowerBound + randomOffset * (upperBound - lowerBound), 0);
     }
 
-    @Override
-    public void attack() {
-
-    }
 
     public void initAnimations() {
         attackAnimation = new Animation(attackTextures, attackTextures.length, 1f);
@@ -160,7 +156,7 @@ public class HorizontalEnemy extends AbstractEnemy {
 
 
     private class Rope {
-        private Vector2 position;
+        private Vector2 ropePos;
         private Texture texture;
         private float width;
         private float height;
@@ -168,25 +164,20 @@ public class HorizontalEnemy extends AbstractEnemy {
         private Rope() {
             width = MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH * 2;
             height = MyGdxGame.HEIGHT / 150;
-            position = new Vector2(MyGdxGame.BORDERWIDTH, 0);
+            ropePos = new Vector2(MyGdxGame.BORDERWIDTH, 0);
             updatePos();
             texture = new Texture("tiles/stoneCenter.png");
         }
 
-
-        private void update() {
-            updatePos();
-        }
-
         private void updatePos() {
-            position.y = HorizontalEnemy.this.position.y;
-            position.y -= height;
+            ropePos.y = HorizontalEnemy.this.position.y;
+            ropePos.y -= height;
         }
 
         private void render(SpriteBatch sb) {
             sb.begin();
 
-            sb.draw(texture, position.x, position.y, width, height);
+            sb.draw(texture, ropePos.x, ropePos.y, width, height);
 
             sb.end();
         }

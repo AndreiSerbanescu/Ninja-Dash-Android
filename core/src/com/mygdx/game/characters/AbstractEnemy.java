@@ -35,15 +35,6 @@ public abstract class AbstractEnemy implements Enemy {
         float newHeight = alpha * newWidth;
 
         return new Vector2(newWidth, newHeight);
-
-        /*
-        *
-        *  float alpha = enemyTexture.getWidth() / enemyTexture.getHeight();
-
-        width = MyGdxGame.WIDTH / 10;
-        height = alpha * MyGdxGame.WIDTH / 10;
-        *
-        * */
     }
 
     public Vector2 getPosition() {

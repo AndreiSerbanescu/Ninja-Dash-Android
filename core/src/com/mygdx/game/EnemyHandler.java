@@ -17,7 +17,6 @@ public class EnemyHandler {
         spawnBoundary = MyGdxGame.HEIGHT * 0.8f;
         this.player = player;
         diffHand = new DifficultyHandler(player);
-
         initEnemies();
     }
 
@@ -41,12 +40,10 @@ public class EnemyHandler {
 
         if (player.getPosition().y > spawnBoundary) {
             Random random = new Random();
-            //Enemy newEnemy = new HorizontalEnemy(spawnBoundary + spawnOffset);
 
             for (int i = 0; i < diffHand.getSpawnNumber(); i++) {
                 Enemy newEnemy;
                 int enemyType = random.nextInt(3);
-
 
                 if (enemyType == 0) {
                     newEnemy= new VerticalEnemy(spawnBoundary + spawnOffset);
@@ -62,9 +59,7 @@ public class EnemyHandler {
 
         }
 
-
         deleteEnemies();
-
         for (Enemy enemy : enemies) {
             if (enemy.collides(player.getCollBox())) {
                 if (!enemy.isDead()){
@@ -84,7 +79,6 @@ public class EnemyHandler {
                 enemiesToDelete.add(enemy);
             }
         }
-
         for (Enemy enemy : enemiesToDelete) {
             enemies.remove(enemy);
             enemy.dispose();

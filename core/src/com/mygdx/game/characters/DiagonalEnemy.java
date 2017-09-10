@@ -1,16 +1,12 @@
 package com.mygdx.game.characters;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GameUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.sprites.Animation;
-
 import java.util.Random;
-
-import javax.xml.bind.ValidationEventLocator;
 
 public class DiagonalEnemy  extends AbstractEnemy {
 
@@ -81,11 +77,6 @@ public class DiagonalEnemy  extends AbstractEnemy {
         deadAnimation = new Animation(deadTextures, deadTextures.length, 0.5f, false);
 
         currentAnimation = attackAnimation;
-    }
-
-    @Override
-    public void attack() {
-
     }
 
     @Override

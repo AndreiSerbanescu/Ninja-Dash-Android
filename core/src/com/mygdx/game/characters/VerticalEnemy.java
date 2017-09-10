@@ -40,7 +40,6 @@ public class VerticalEnemy extends AbstractEnemy {
             position = new Vector2(MyGdxGame.WIDTH - MyGdxGame.BORDERWIDTH - width, y);
             direction = RIGHT;
         }
-
         velocity = new Vector2(0, - MyGdxGame.HEIGHT / 5);
         initCollBox(position.x, position.y, width, height);
     }
@@ -57,11 +56,6 @@ public class VerticalEnemy extends AbstractEnemy {
     }
 
     @Override
-    public void attack() {
-
-    }
-
-    @Override
     public void die() {
         currentAnimation = deadAnimation;
         isDead = true;
@@ -73,7 +67,6 @@ public class VerticalEnemy extends AbstractEnemy {
         if (direction == RIGHT) {
             currentAnimation.getFrame().flip(true, false);
         }
-
 
         sb.begin();
         sb.draw(currentAnimation.getFrame(), position.x, position.y, width, height);
@@ -104,7 +97,6 @@ public class VerticalEnemy extends AbstractEnemy {
     private void initAnimations() {
         runAnimation = new Animation(attackTextures, attackTextures.length, 1f);
         deadAnimation = new Animation(deadTextures, deadTextures.length, 1f, false);
-
         currentAnimation = runAnimation;
     }
 

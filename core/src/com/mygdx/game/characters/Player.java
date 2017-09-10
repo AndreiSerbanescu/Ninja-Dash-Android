@@ -74,8 +74,6 @@ public class Player {
         this.ground2Right = ground2Right;
 
         protectionOrb = new ProtectionOrb();
-        //protText = new Texture("spr_shield.png");
-
     }
 
 
@@ -84,8 +82,8 @@ public class Player {
                 .makeAnimation("ninjaAnimation/run/Run__00", "png", 9, 0.2f);
         jumpAnimation = GameUtils
                 .makeAnimation("ninjaAnimation/attack/Glide_00", "png", 10, 0.2f);
-        deadAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/dead/Dead__00", "png", 10, 0.2f, false);
+        deadAnimation = GameUtils.makeAnimation("ninjaAnimation/dead/Dead__00", "png",
+                        10, 0.2f, false);
 
         currentAnimation = jumpAnimation;
     }
@@ -144,8 +142,6 @@ public class Player {
             }
         }
 
-
-
         Vector2 velY = velocity.cpy();
         velocity.scl(deltaTime);
         velY.scl(deltaTime);
@@ -157,12 +153,10 @@ public class Player {
         velocity.scl(1f / deltaTime);
         velY.scl(1f / deltaTime);
 
-
         if (isJumping) {
             position = getJumpPosition(position);
         }
         collBox.setPosition(position);
-
 
         if (isGrounded()) {
             isJumping = false;
@@ -244,10 +238,6 @@ public class Player {
        }
         
        sb.end();
-    }
-
-    public void kill(Enemy enemy) {
-        enemy.die();
     }
 
     public void die() {
