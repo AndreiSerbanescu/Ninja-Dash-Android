@@ -18,13 +18,11 @@ public class MyGdxGame extends ApplicationAdapter {
 	public static final String TITLE = "Ave Games";
 
     private SpriteBatch batch;
-    private Texture img;
 	private GameStateManager gsm;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 		gsm = new GameStateManager();
 
 		gsm.push(new StartState(gsm));
@@ -45,6 +43,5 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
 	}
 }

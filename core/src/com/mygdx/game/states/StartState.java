@@ -17,7 +17,7 @@ public class StartState extends AbstractState {
     public StartState(GameStateManager game) {
         super(game);
 
-        background = new Texture("background.jpg");
+        background = new Texture("background/1.png");
         playButton = new Texture("playButton.png");
 
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
