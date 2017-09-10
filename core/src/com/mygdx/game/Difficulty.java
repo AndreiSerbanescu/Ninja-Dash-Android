@@ -1,5 +1,5 @@
 package com.mygdx.game;
 
 public enum Difficulty {
-    EASY, MEDIUM, HARD
+    EASY, EASYMED, MEDIUM, MEDIUMHARD, HARD, ULTRAHARD
 }
