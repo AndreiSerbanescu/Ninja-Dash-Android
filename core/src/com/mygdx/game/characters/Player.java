@@ -300,7 +300,7 @@ public class Player {
 
         public ProtectionOrb() {
             texture = new Texture("spr_shield.png");
-            width = Player.this.width * 3f;
+            width = Player.this.width * 2f;
             height = width;
         }
 
