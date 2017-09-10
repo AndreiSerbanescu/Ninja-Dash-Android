@@ -272,7 +272,7 @@ public class Player {
                 isProtected = false;
                 enemy.die();
             } else {
-                die();
+                //die();
             }
             return;
         }
@@ -282,7 +282,7 @@ public class Player {
                 isProtected = false;
                 enemy.die();
             } else {
-                die();
+                //die();
             }
         }
     }
