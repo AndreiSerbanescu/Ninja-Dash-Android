@@ -79,11 +79,11 @@ public class Player {
 
     private void initAnimations() {
         runAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/run/Run__00", "png", 9, 0.2f);
+                .makeAnimation("ninjaAnimation/run/Run__00", "png", 9, 0.3f);
         jumpAnimation = GameUtils
-                .makeAnimation("ninjaAnimation/attack/Glide_00", "png", 10, 0.2f);
+                .makeAnimation("ninjaAnimation/attack/Glide_00", "png", 10, 0.3f);
         deadAnimation = GameUtils.makeAnimation("ninjaAnimation/dead/Dead__00", "png",
-                        10, 0.2f, false);
+                        10, 0.3f, false);
 
         currentAnimation = jumpAnimation;
     }
