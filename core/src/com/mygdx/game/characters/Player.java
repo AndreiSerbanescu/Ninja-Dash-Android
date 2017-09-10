@@ -17,8 +17,6 @@ public class Player {
     private static final int LEFT = -1;
     private static final int RIGHT = 1;
 
-    private int width;
-    private  int height;
     private Vector2 position;
     private Vector2 nonJumpPos;
 
@@ -49,15 +47,17 @@ public class Player {
 
     private ProtectionOrb protectionOrb;
 
+    private float width;
+    private float height;
 
-    public Player(int width, int height, Vector2 position,
+    public Player(Vector2 position,
                   Rectangle ground1Left, Rectangle ground1Right,
                   Rectangle ground2Left, Rectangle ground2Right,
                   OrthographicCamera camera) {
 
         initAnimations();
-        this.width = width;
-        this.height = height;
+        updateWidthHeight();
+
         this.position = position;
         nonJumpPos = position.cpy();
 
@@ -94,11 +94,11 @@ public class Player {
         return collBox;
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
@@ -126,6 +126,8 @@ public class Player {
 
 
         currentAnimation.update(deltaTime);
+
+        updateWidthHeight();
 
         velocity.x = jumpVelocityX;
 
@@ -232,6 +234,7 @@ public class Player {
 
        sb.begin();
 
+
        sb.draw(currentFrame, position.x, position.y, width, height);
        if (orientation == LEFT) {
            currentFrame.flip(true, false);
@@ -292,6 +295,12 @@ public class Player {
                 die();
             }
         }
+    }
+    private void updateWidthHeight() {
+
+        Texture currTexture = currentAnimation.getFrame().getTexture();
+        width = MyGdxGame.WIDTH / 5;
+        height = width * currTexture.getHeight() / currTexture.getWidth();
     }
 
     public class ProtectionOrb {

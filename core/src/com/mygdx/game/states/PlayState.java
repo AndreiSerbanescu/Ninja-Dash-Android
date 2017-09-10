@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EnemyHandler;
 import com.mygdx.game.GameStateManager;
+import com.mygdx.game.GameUtils;
 import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.characters.Player;
 import java.util.Random;
@@ -28,14 +29,11 @@ public class PlayState extends AbstractState {
 
         Texture playerTexture = new Texture("ninjaAnimation/Run__000.png");
 
-        int newWidth = MyGdxGame.WIDTH / 7;
-        int newHeight = newWidth * playerTexture.getHeight() / playerTexture.getWidth();
 
 
         border = new Border();
 
-        player = new Player(newWidth, newHeight,
-                new Vector2(border.width, 1f * MyGdxGame.HEIGHT / 6),
+        player = new Player(new Vector2(border.width, 1f * MyGdxGame.HEIGHT / 6),
                 border.collBox1Left, border.collBox1Right,
                 border.collBox2Left, border.collBox2Right,
                 camera);
