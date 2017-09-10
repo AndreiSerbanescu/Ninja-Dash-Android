@@ -56,9 +56,7 @@ public class EnemyHandler {
 
         for (Enemy enemy : enemies) {
             if (enemy.collides(player.getCollBox())) {
-                if (player.isJumping()) {
-                    enemy.die();
-                } else if (!player.isJumping() && !enemy.isDead()){
+                if (!enemy.isDead()){
                     player.receiveAttack(enemy);
                 }
             }

@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface Enemy {
 
+    boolean isInvincible();
+
     void attack();
 
     void die();

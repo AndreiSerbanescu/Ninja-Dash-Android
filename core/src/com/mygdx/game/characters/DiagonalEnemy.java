@@ -52,7 +52,8 @@ public class DiagonalEnemy  extends AbstractEnemy {
         int alpha = random.nextInt(50);
 
         float diagonalVelocity = 1f * MyGdxGame.WIDTH / 2;
-        velocity = new Vector2(diagonalVelocity * (float)Math.cos(1d * alpha), diagonalVelocity * (float)Math.sin(1d * alpha));
+        velocity = new Vector2(diagonalVelocity * (float)Math.cos(1d * alpha),
+                diagonalVelocity * (float)Math.sin(1d * alpha));
 
         texture = new Texture("enemy/diagonal/image.png");
 

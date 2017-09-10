@@ -123,4 +123,9 @@ public class VerticalEnemy extends AbstractEnemy {
             deadTexture.dispose();
         }
     }
+
+    @Override
+    public boolean isInvincible() {
+        return true;
+    }
 }

@@ -278,11 +278,22 @@ public class Player {
     }
 
     public void receiveAttack(Enemy enemy) {
-        if (isProtected) {
-            isProtected = false;
+        if (isJumping && !enemy.isInvincible()) {
             enemy.die();
-        } else {
+            return;
+        }
+
+        if (!isJumping) {
             die();
+            return;
+        }
+        if (enemy.isInvincible()) {
+            if (isProtected) {
+                isProtected = false;
+                enemy.die();
+            } else {
+                die();
+            }
         }
     }
 
