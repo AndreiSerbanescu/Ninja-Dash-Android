@@ -241,7 +241,6 @@ public class Player {
     }
 
     public void die() {
-        currentAnimation = deadAnimation;
         isDead = true;
         velocity.y = 0;
     }
